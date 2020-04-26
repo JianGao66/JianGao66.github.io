@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://jiangao66.github.io/"/>
-  <updated>2020-04-17T14:38:52.279Z</updated>
+  <updated>2020-04-26T07:05:45.898Z</updated>
   <id>https://jiangao66.github.io/</id>
   
   <author>
@@ -17,75 +17,208 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>Hello World</title>
-    <link href="https://jiangao66.github.io/2020/04/18/hello-world/"/>
-    <id>https://jiangao66.github.io/2020/04/18/hello-world/</id>
-    <published>2020-04-18T08:02:09.614Z</published>
-    <updated>2020-04-17T14:38:52.279Z</updated>
+    <title>剑指offer题解笔记：时间效率和空间效率的平衡</title>
+    <link href="https://jiangao66.github.io/2020/04/04/0ffer07/"/>
+    <id>https://jiangao66.github.io/2020/04/04/0ffer07/</id>
+    <published>2020-04-04T05:26:44.000Z</published>
+    <updated>2020-04-26T07:05:45.898Z</updated>
     
     <summary type="html">
     
-      
-      
-        
-        
-          &lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a
-        
-      
+      &lt;h3 id=&quot;丑数&quot;&gt;&lt;a href=&quot;#丑数&quot; class=&quot;headerlink&quot; title=&quot;丑数&quot;&gt;&lt;/a&gt;丑数&lt;/h3&gt;&lt;blockquote&gt;
+&lt;p&gt;题目描述：把只包含质因子2、3和5的数称作丑数（Ugly Number）。例如6、8都是丑数，但14不是，因为它包含质因子7。 习惯上我们把1当做是第一个丑数。求按从小到大的顺序的第N个丑数。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h4 id=&quot;解题思路&quot;&gt;&lt;a href=&quot;#解题思路&quot; class=&quot;headerlink&quot; title=&quot;解题思路&quot;&gt;&lt;/a&gt;解题思路&lt;/h4&gt;&lt;p&gt;所谓一个数m是另一个数n的因子，是指n能被m整除，也就是n % m == 0。根据丑数的定义，丑数只能被2、3、5整除，也就是说，如果一个数能被2整除，就连续除以2；如果能被3整除，就连续除以3；如果能被5整除，就连续除以5。如果最后得到的是1，那么这个数就是丑数，否则就不是。&lt;/p&gt;
     
     </summary>
     
     
-      <category term="面试" scheme="https://jiangao66.github.io/categories/%E9%9D%A2%E8%AF%95/"/>
+      <category term="数据结构与算法" scheme="https://jiangao66.github.io/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/"/>
     
     
-      <category term="helloword" scheme="https://jiangao66.github.io/tags/helloword/"/>
+      <category term="剑指offer" scheme="https://jiangao66.github.io/tags/%E5%89%91%E6%8C%87offer/"/>
+    
+      <category term="时间效率" scheme="https://jiangao66.github.io/tags/%E6%97%B6%E9%97%B4%E6%95%88%E7%8E%87/"/>
+    
+      <category term="空间效率" scheme="https://jiangao66.github.io/tags/%E7%A9%BA%E9%97%B4%E6%95%88%E7%8E%87/"/>
     
   </entry>
   
   <entry>
-    <title>吸泥机</title>
-    <link href="https://jiangao66.github.io/2020/04/17/jvm/"/>
-    <id>https://jiangao66.github.io/2020/04/17/jvm/</id>
-    <published>2020-04-17T09:34:13.000Z</published>
-    <updated>2020-04-17T13:23:11.098Z</updated>
+    <title>剑指offer题解笔记：时间效率</title>
+    <link href="https://jiangao66.github.io/2020/04/01/0ffer06/"/>
+    <id>https://jiangao66.github.io/2020/04/01/0ffer06/</id>
+    <published>2020-04-01T05:26:44.000Z</published>
+    <updated>2020-04-26T05:54:11.510Z</updated>
     
     <summary type="html">
     
-      
-      
-        
-        
-          &lt;h1 id=&quot;测试&quot;&gt;&lt;a href=&quot;#测试&quot; class=&quot;headerlink&quot; title=&quot;测试&quot;&gt;&lt;/a&gt;测试&lt;/h1&gt;&lt;h3 id=&quot;第一章&quot;&gt;&lt;a href=&quot;#第一章&quot; class=&quot;headerlink&quot;
-        
-      
+      &lt;h3 id=&quot;连续子数组的最大和&quot;&gt;&lt;a href=&quot;#连续子数组的最大和&quot; class=&quot;headerlink&quot; title=&quot;连续子数组的最大和&quot;&gt;&lt;/a&gt;连续子数组的最大和&lt;/h3&gt;&lt;blockquote&gt;
+&lt;p&gt;题目描述：HZ偶尔会拿些专业问题来忽悠那些非计算机专业的同学。今天测试组开完会后,他又发话了:在古老的一维模式识别中,常常需要计算连续子向量的最大和,当向量全为正数的时候,问题很好解决。但是,如果向量中包含负数,是否应该包含某个负数,并期望旁边的正数会弥补它呢？例如:{6,-3,-2,7,-15,1,2,2},连续子向量的最大和为8(从第0个开始,到第3个为止)。给一个数组，返回它的最大连续子序列的和，你会不会被他忽悠住？(子向量的长度至少是1)&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h4 id=&quot;解题思路&quot;&gt;&lt;a href=&quot;#解题思路&quot; class=&quot;headerlink&quot; title=&quot;解题思路&quot;&gt;&lt;/a&gt;解题思路&lt;/h4&gt;&lt;p&gt;第一次看到这个题的时候，最直观的思路应该是想办法枚举所有子数组并求其和，但是一个长度为n的数组，枚举的子数组共有n(n+1)/2个，因此最快也需要O(n^2)时间。在算法题目中，凡是面对这种复杂度的解法，往往是不考虑这种解法的。&lt;/p&gt;
     
     </summary>
     
     
+      <category term="数据结构与算法" scheme="https://jiangao66.github.io/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/"/>
+    
+    
+      <category term="剑指offer" scheme="https://jiangao66.github.io/tags/%E5%89%91%E6%8C%87offer/"/>
+    
+      <category term="时间效率" scheme="https://jiangao66.github.io/tags/%E6%97%B6%E9%97%B4%E6%95%88%E7%8E%87/"/>
     
   </entry>
   
   <entry>
-    <title>java虚拟机</title>
-    <link href="https://jiangao66.github.io/2020/03/15/myfirstblog/"/>
-    <id>https://jiangao66.github.io/2020/03/15/myfirstblog/</id>
+    <title>剑指offer题解笔记：数组</title>
+    <link href="https://jiangao66.github.io/2020/03/28/0ffer05/"/>
+    <id>https://jiangao66.github.io/2020/03/28/0ffer05/</id>
+    <published>2020-03-28T05:26:44.000Z</published>
+    <updated>2020-04-26T05:54:46.445Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;数组中重复的数字&quot;&gt;&lt;a href=&quot;#数组中重复的数字&quot; class=&quot;headerlink&quot; title=&quot;数组中重复的数字&quot;&gt;&lt;/a&gt;数组中重复的数字&lt;/h3&gt;&lt;blockquote&gt;
+&lt;p&gt;题目描述：在一个长度为n的数组里的所有数字都在0到n-1的范围内。 数组中某些数字是重复的，但不知道有几个数字是重复的。也不知道每个数字重复几次。请找出数组中任意一个重复的数字。 例如，如果输入长度为7的数组{2,3,1,0,2,5,3}，那么对应的输出是第一个重复的数字2。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h4 id=&quot;解题思路&quot;&gt;&lt;a href=&quot;#解题思路&quot; class=&quot;headerlink&quot; title=&quot;解题思路&quot;&gt;&lt;/a&gt;解题思路&lt;/h4&gt;&lt;p&gt;数组类题目解题往往是存在直观解法的，因为不管是一维数组还是二维数组，都可以直接通过双重for循环之类方法进行直接求解，但是这种解法的时间复杂度都是很高的，为此，在算法类题目中涉及到数组，往往不会使用多重循环求解。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="数据结构与算法" scheme="https://jiangao66.github.io/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/"/>
+    
+    
+      <category term="剑指offer" scheme="https://jiangao66.github.io/tags/%E5%89%91%E6%8C%87offer/"/>
+    
+      <category term="数组" scheme="https://jiangao66.github.io/tags/%E6%95%B0%E7%BB%84/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>剑指offer题解笔记：位操作</title>
+    <link href="https://jiangao66.github.io/2020/03/25/0ffer04/"/>
+    <id>https://jiangao66.github.io/2020/03/25/0ffer04/</id>
+    <published>2020-03-25T05:26:44.000Z</published>
+    <updated>2020-04-26T05:55:08.658Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;位1的个数&quot;&gt;&lt;a href=&quot;#位1的个数&quot; class=&quot;headerlink&quot; title=&quot;位1的个数&quot;&gt;&lt;/a&gt;位1的个数&lt;/h3&gt;&lt;blockquote&gt;
+&lt;p&gt;题目描述： 编写一个函数，输入是一个无符号整数，返回其二进制表达式中数字位数为 ‘1’ 的个数。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h4 id=&quot;解题思路&quot;&gt;&lt;a href=&quot;#解题思路&quot; class=&quot;headerlink&quot; title=&quot;解题思路&quot;&gt;&lt;/a&gt;解题思路&lt;/h4&gt;&lt;p&gt;这个题的解法比较多，有位移法、位操作法、查表法、二次查表法等方法。甚至在java的工具类下面有一个bitCount()方法可以直接返回一个整数的二进制表达式中1的个数。&lt;br&gt;但是一般如果面试题中遇到这题，往往还是考察对位操作的使用。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="数据结构与算法" scheme="https://jiangao66.github.io/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/"/>
+    
+    
+      <category term="位操作" scheme="https://jiangao66.github.io/tags/%E4%BD%8D%E6%93%8D%E4%BD%9C/"/>
+    
+      <category term="剑指offer" scheme="https://jiangao66.github.io/tags/%E5%89%91%E6%8C%87offer/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>剑指offer题解笔记：树</title>
+    <link href="https://jiangao66.github.io/2020/03/23/0ffer03/"/>
+    <id>https://jiangao66.github.io/2020/03/23/0ffer03/</id>
+    <published>2020-03-23T05:26:44.000Z</published>
+    <updated>2020-04-26T05:55:57.496Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;二叉树的下一个节点&quot;&gt;&lt;a href=&quot;#二叉树的下一个节点&quot; class=&quot;headerlink&quot; title=&quot;二叉树的下一个节点&quot;&gt;&lt;/a&gt;二叉树的下一个节点&lt;/h3&gt;&lt;blockquote&gt;
+&lt;p&gt;题目描述：给定一个二叉树和其中的一个结点，请找出中序遍历顺序的下一个结点并且返回。注意，树中的结点不仅包含左右子结点，同时包含指向父结点的指针。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;其中树的结构代码如下：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;public class TreeLinkNode &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;   int val;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;   TreeLinkNode left &amp;#x3D; null;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;   TreeLinkNode right &amp;#x3D; null;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;   TreeLinkNode next &amp;#x3D; null; &amp;#x2F;&amp;#x2F;指向父节点&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;   TreeLinkNode(int val) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;       this.val &amp;#x3D; val;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;   &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+    
+    </summary>
+    
+    
+      <category term="数据结构与算法" scheme="https://jiangao66.github.io/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/"/>
+    
+    
+      <category term="剑指offer" scheme="https://jiangao66.github.io/tags/%E5%89%91%E6%8C%87offer/"/>
+    
+      <category term="树" scheme="https://jiangao66.github.io/tags/%E6%A0%91/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>剑指offer题解笔记：递归与循环</title>
+    <link href="https://jiangao66.github.io/2020/03/21/0ffer02/"/>
+    <id>https://jiangao66.github.io/2020/03/21/0ffer02/</id>
+    <published>2020-03-21T09:34:13.000Z</published>
+    <updated>2020-04-26T05:26:02.103Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;斐波拉契数列&quot;&gt;&lt;a href=&quot;#斐波拉契数列&quot; class=&quot;headerlink&quot; title=&quot;斐波拉契数列&quot;&gt;&lt;/a&gt;斐波拉契数列&lt;/h3&gt;&lt;blockquote&gt;
+&lt;p&gt;题目描述：大家都知道斐波那契数列，现在要求输入一个整数n，请你输出斐波那契数列的第n项（从0开始，第0项为0）。n&amp;lt;=39&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;斐波拉契数列应该是很多学生大一学习C语言时解决的一个问题，我记得那时候好像是用递归算法去解决的，然鹅稍微懂一些数据结构的小伙伴应该都知道，斐波拉契数列是最好不使用递归算法的，为什么呢，因为递归计算斐波拉契数列的时候重复计算项很多，而且越到后面计算量越来越爆炸，最后会导致运行超时，比如栈溢出等exception，如果我们使用递归，代码确实简洁了，比如下面：&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="数据结构与算法" scheme="https://jiangao66.github.io/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/"/>
+    
+    
+      <category term="剑指offer" scheme="https://jiangao66.github.io/tags/%E5%89%91%E6%8C%87offer/"/>
+    
+      <category term="递归与循环" scheme="https://jiangao66.github.io/tags/%E9%80%92%E5%BD%92%E4%B8%8E%E5%BE%AA%E7%8E%AF/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>剑指offer题解笔记：链表</title>
+    <link href="https://jiangao66.github.io/2020/03/20/offer01/"/>
+    <id>https://jiangao66.github.io/2020/03/20/offer01/</id>
+    <published>2020-03-20T09:34:13.000Z</published>
+    <updated>2020-04-26T05:07:45.104Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;链表中倒数第k个节点&quot;&gt;&lt;a href=&quot;#链表中倒数第k个节点&quot; class=&quot;headerlink&quot; title=&quot;链表中倒数第k个节点&quot;&gt;&lt;/a&gt;链表中倒数第k个节点&lt;/h3&gt;&lt;blockquote&gt;
+&lt;p&gt;题目描述：输入一个链表，输出该链表中倒数第k个节点。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;虽然最直观的思路往往不是最优解，但是我们在做算法题的时候还是需要从最直观的解法出发，不断优化现有思路或者参考他人解法来获取新的idea来解决问题，这样才能达到思维层面上的进步。&lt;br&gt;就这题而言，最直观的解法显然是先遍历链表，找到链表的长度length,然后再找到第length-k+1位置处的节点，就是需要的倒数第k个节点。那么可以很快的写出下面代码：&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="数据结构与算法" scheme="https://jiangao66.github.io/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/"/>
+    
+    
+      <category term="剑指offer" scheme="https://jiangao66.github.io/tags/%E5%89%91%E6%8C%87offer/"/>
+    
+      <category term="链表" scheme="https://jiangao66.github.io/tags/%E9%93%BE%E8%A1%A8/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>排序算法比较与梳理</title>
+    <link href="https://jiangao66.github.io/2020/03/15/sort01/"/>
+    <id>https://jiangao66.github.io/2020/03/15/sort01/</id>
     <published>2020-03-15T09:27:58.000Z</published>
-    <updated>2020-04-17T09:30:49.001Z</updated>
+    <updated>2020-04-26T03:53:58.537Z</updated>
     
     <summary type="html">
     
-      
-      
-        
-        
-          &lt;h3 id=&quot;第一篇博客&quot;&gt;&lt;a href=&quot;#第一篇博客&quot; class=&quot;headerlink&quot;
-        
-      
+      &lt;h2 id=&quot;各类排序算法&quot;&gt;&lt;a href=&quot;#各类排序算法&quot; class=&quot;headerlink&quot; title=&quot;各类排序算法&quot;&gt;&lt;/a&gt;各类排序算法&lt;/h2&gt;&lt;p&gt;&lt;img src=&quot;/img/01sort/sort.png&quot; alt=&quot;排序算法复杂度&quot;&gt;&lt;/p&gt;
     
     </summary>
     
     
+      <category term="数据结构与算法" scheme="https://jiangao66.github.io/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/"/>
+    
+    
+      <category term="排序算法" scheme="https://jiangao66.github.io/tags/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/"/>
     
   </entry>
   
