@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/logo.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/logo.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/logo.png">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"jiangao66.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="斐波拉契数列 题目描述：大家都知道斐波那契数列，现在要求输入一个整数n，请你输出斐波那契数列的第n项（从0开始，第0项为0）。n&lt;&#x3D;39  斐波拉契数列应该是很多学生大一学习C语言时解决的一个问题，我记得那时候好像是用递归算法去解决的，然鹅稍微懂一些数据结构的小伙伴应该都知道，斐波拉契数列是最好不使用递归算法的，为什么呢，因为递归计算斐波拉契数列的时候重复计算项很多，而且越到后面计算量越来越">
+<meta property="og:type" content="article">
+<meta property="og:title" content="剑指offer题解笔记：递归与循环">
+<meta property="og:url" content="https://jiangao66.github.io/2020/03/21/offer02/index.html">
+<meta property="og:site_name" content="Blog">
+<meta property="og:description" content="斐波拉契数列 题目描述：大家都知道斐波那契数列，现在要求输入一个整数n，请你输出斐波那契数列的第n项（从0开始，第0项为0）。n&lt;&#x3D;39  斐波拉契数列应该是很多学生大一学习C语言时解决的一个问题，我记得那时候好像是用递归算法去解决的，然鹅稍微懂一些数据结构的小伙伴应该都知道，斐波拉契数列是最好不使用递归算法的，为什么呢，因为递归计算斐波拉契数列的时候重复计算项很多，而且越到后面计算量越来越">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://jiangao66.github.io/img/02offer/fib.png">
+<meta property="og:image" content="https://jiangao66.github.io/img//02offer/juxing.png">
+<meta property="article:published_time" content="2020-03-21T09:34:13.000Z">
+<meta property="article:modified_time" content="2020-04-26T05:26:02.103Z">
+<meta property="article:author" content="小小鱼">
+<meta property="article:tag" content="剑指offer">
+<meta property="article:tag" content="递归与循环">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://jiangao66.github.io/img/02offer/fib.png">
+
+<link rel="canonical" href="https://jiangao66.github.io/2020/03/21/offer02/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>剑指offer题解笔记：递归与循环 | Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/yourname" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://jiangao66.github.io/2020/03/21/offer02/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="小小鱼">
+      <meta itemprop="description" content="分享学习心得，记录学习过程">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          剑指offer题解笔记：递归与循环
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-03-21 17:34:13" itemprop="dateCreated datePublished" datetime="2020-03-21T17:34:13+08:00">2020-03-21</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-04-26 13:26:02" itemprop="dateModified" datetime="2020-04-26T13:26:02+08:00">2020-04-26</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">数据结构与算法</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="斐波拉契数列"><a href="#斐波拉契数列" class="headerlink" title="斐波拉契数列"></a>斐波拉契数列</h3><blockquote>
+<p>题目描述：大家都知道斐波那契数列，现在要求输入一个整数n，请你输出斐波那契数列的第n项（从0开始，第0项为0）。n&lt;=39</p>
+</blockquote>
+<p>斐波拉契数列应该是很多学生大一学习C语言时解决的一个问题，我记得那时候好像是用递归算法去解决的，然鹅稍微懂一些数据结构的小伙伴应该都知道，斐波拉契数列是最好不使用递归算法的，为什么呢，因为递归计算斐波拉契数列的时候重复计算项很多，而且越到后面计算量越来越爆炸，最后会导致运行超时，比如栈溢出等exception，如果我们使用递归，代码确实简洁了，比如下面：</p>
+<a id="more"></a>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">public int Fibonacci(int n)&#123;</span><br><span class="line">    if(n &lt; 1)  return 0;</span><br><span class="line">    if(n &#x3D;&#x3D; 1) return 1;</span><br><span class="line">    return Fibonacci(n-1) + Fibonacci(n-2);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>但是比如我们想求解第10项数据的时候，我们以f(10)表示第10项斐波拉契结果，那么用递归运行时会出现下面结构：<br><img src="/img/02offer/fib.png" alt="fib"><br>不难看出，重复的节点会随着n的增大而急剧增大，事实上也是，用递归方法计算的时间复杂度是以n的指数方式递增的，不妨可以使用递归计算一下Fibonacci的第100项，看看会慢到什么程度。<br>所以实用解法肯定不是这种啦。<br>而改进方法，实际上目的就是为了避免上面的重复计算，那么我们实际上用一个数列保存已经计算过的数。于是我们可以写出如下代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">public int Fibonacci(int n) &#123;</span><br><span class="line">   if(n &lt; 1)&#123;</span><br><span class="line">       return 0;</span><br><span class="line">   &#125;</span><br><span class="line">   if(n &#x3D;&#x3D; 1 || n &#x3D;&#x3D; 2)&#123;</span><br><span class="line">       return 1;</span><br><span class="line">   &#125;</span><br><span class="line">   if(n &#x3D;&#x3D; 3)&#123;</span><br><span class="line">       return 2;</span><br><span class="line">   &#125;</span><br><span class="line">   int fib1 &#x3D; 1;</span><br><span class="line">   int fib2 &#x3D; 2;</span><br><span class="line">   int result &#x3D; 0;</span><br><span class="line">   for(int i &#x3D; 3 ; i &lt; n ; i++)&#123;</span><br><span class="line">       result &#x3D; fib1 + fib2;</span><br><span class="line">       fib1 &#x3D; fib2;</span><br><span class="line">       fib2 &#x3D; result;</span><br><span class="line">   &#125;</span><br><span class="line">   return result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面代码就可以简约的搞定问题了！</p>
+<h3 id="青蛙跳台阶"><a href="#青蛙跳台阶" class="headerlink" title="青蛙跳台阶"></a>青蛙跳台阶</h3><blockquote>
+<p>题目描述：一只青蛙一次可以跳上1级台阶，也可以跳上2级。求该青蛙跳上一个n级的台阶总共有多少种跳法（先后次序不同算不同的结果）。</p>
+</blockquote>
+<p>首先我们可以从最简单的情况开始考虑，如果只有一级台阶，那显然只能跳一次。如果有两级台阶，那么就有两种跳法：一种是每次跳一级；另一种是一次跳两级。<br>然后我们将这种情况一般化，假如有n级台阶，可以把跳n级台阶的跳法看作是n的函数f(n)。当n&gt;2时，第一次跳的时候就有两种选择：<br>第一次跳一级，那么跳法数目等于后面的n-1级台阶的跳法数目，即为f(n-1)。<br>第一次跳两级，那么跳法数目等于后面的n-2级台阶的跳法数目，即为f(n-2)。<br>因此，n级台阶的不同跳法数目的总数为f(n)=f(n-1)+f(n-2)，到这里应该可以看出，说到底这个问题就是一个包装的斐波拉契数列问题。<br>那么代码其实跟上面的没啥区别：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"> public int JumpFloor(int target) &#123;</span><br><span class="line">    if(target &lt;&#x3D; 2)&#123;</span><br><span class="line">       return target;</span><br><span class="line">    &#125;</span><br><span class="line">    int pre1 &#x3D; 1;</span><br><span class="line">    int pre2 &#x3D; 2;</span><br><span class="line">    int result &#x3D; 0;</span><br><span class="line">    for(int i &#x3D; 2;i &lt; target; i++)&#123;</span><br><span class="line">        result &#x3D; pre1 + pre2;</span><br><span class="line">        pre1 &#x3D; pre2;</span><br><span class="line">        pre2 &#x3D; result;</span><br><span class="line">    &#125;</span><br><span class="line">    return result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="变态青蛙跳台阶"><a href="#变态青蛙跳台阶" class="headerlink" title="变态青蛙跳台阶"></a>变态青蛙跳台阶</h3><blockquote>
+<p>题目描述：这次这只青蛙很变态，一次可以跳上1级台阶，也可以跳上2级……它也可以跳上n级。求该青蛙跳上一个n级的台阶总共有多少种跳法。</p>
+</blockquote>
+<p>这个其实问题更不大，这本质上就是一个简单的数学问题，我们可以根据上面那个问题归纳这个问题：<br>跳n级台阶时，这时候跳法就很多了：<br>第一次跳一级，那么剩下的就是f(n-1)<br>第一次跳两级，那么剩下的就是f(n-2)<br>第一次跳三级，那么剩下的就是f(n-3)<br>….<br>第一次跳n-1级，那么剩下就是f(1).<br>那么实际上就是f(n)=f(n-1)+f(n-2)+f(n-3)+…+f(1)，又因为f(n-1)=f(n-2)+f(n-3)+…+f(1)<br>，所以f(n)=2f(n-1)。<br>到这里应该可以看出来了吧？这不就是一个等比数列吗，并且f(1)=1。<br>那么实际上f(n)=2^(n-1)，完事！</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">public int JumpFloorII1(int target)&#123;</span><br><span class="line">   return (int)java.util.Math.pow(2,target-1);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="矩形覆盖"><a href="#矩形覆盖" class="headerlink" title="矩形覆盖"></a>矩形覆盖</h3><blockquote>
+<p>题目描述：我们可以用2x1的小矩形横着或者竖着去覆盖更大的矩形。请问用n个2x1的小矩形无重叠地覆盖一个2xn的大矩形，总共有多少种方法？</p>
+</blockquote>
+<p>这个就借用<code>牛客网答题者csdong</code>的回答，很简单易懂：<br><img src="/img//02offer/juxing.png" alt="juxing"></p>
+<p>所以跟上面的还是没区别。。。依然是老瓶装新酒。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">public int RectCover(int target) &#123;</span><br><span class="line">   if(target &lt;&#x3D; 2)&#123;</span><br><span class="line">       return target;</span><br><span class="line">   &#125;</span><br><span class="line">   int pre1 &#x3D; 1,pre2 &#x3D; 2;</span><br><span class="line">   int result &#x3D; 0;</span><br><span class="line">   for(int i &#x3D; 3; i &lt;&#x3D; target;i++)&#123;</span><br><span class="line">        result &#x3D; pre1 + pre2;</span><br><span class="line">        pre1 &#x3D; pre2;</span><br><span class="line">        pre2 &#x3D; result;</span><br><span class="line">   &#125;</span><br><span class="line">   return result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/%E5%89%91%E6%8C%87offer/" rel="tag"><i class="fa fa-tag"></i> 剑指offer</a>
+              <a href="/tags/%E9%80%92%E5%BD%92%E4%B8%8E%E5%BE%AA%E7%8E%AF/" rel="tag"><i class="fa fa-tag"></i> 递归与循环</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/03/20/offer01/" rel="prev" title="剑指offer题解笔记：链表">
+      <i class="fa fa-chevron-left"></i> 剑指offer题解笔记：链表
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/03/23/offer03/" rel="next" title="剑指offer题解笔记：树">
+      剑指offer题解笔记：树 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#斐波拉契数列"><span class="nav-number">1.</span> <span class="nav-text">斐波拉契数列</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#青蛙跳台阶"><span class="nav-number">2.</span> <span class="nav-text">青蛙跳台阶</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#变态青蛙跳台阶"><span class="nav-number">3.</span> <span class="nav-text">变态青蛙跳台阶</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#矩形覆盖"><span class="nav-number">4.</span> <span class="nav-text">矩形覆盖</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="小小鱼"
+      src="/images/header.jpg">
+  <p class="site-author-name" itemprop="name">小小鱼</p>
+  <div class="site-description" itemprop="description">分享学习心得，记录学习过程</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">47</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/JianGao66" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;JianGao66" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:2517550801@qq.com" title="E-Mail → mailto:2517550801@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/atom.xml" title="RSS → &#x2F;atom.xml"><i class="fa fa-rss fa-fw"></i>RSS</a>
+      </span>
+  </div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heartbeat"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">小小鱼</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+  
+  <script type="text/javascript"
+  color="0,0,255" opacity='0.7' zIndex="-2" count="99" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+  
+  
+</body>
+</html>

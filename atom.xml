@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://jiangao66.github.io/"/>
-  <updated>2020-04-26T07:05:45.898Z</updated>
+  <updated>2020-05-20T05:33:24.517Z</updated>
   <id>https://jiangao66.github.io/</id>
   
   <author>
@@ -17,208 +17,502 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>剑指offer题解笔记：时间效率和空间效率的平衡</title>
-    <link href="https://jiangao66.github.io/2020/04/04/0ffer07/"/>
-    <id>https://jiangao66.github.io/2020/04/04/0ffer07/</id>
-    <published>2020-04-04T05:26:44.000Z</published>
-    <updated>2020-04-26T07:05:45.898Z</updated>
+    <title>Java中的NIO</title>
+    <link href="https://jiangao66.github.io/2020/05/20/NIO/"/>
+    <id>https://jiangao66.github.io/2020/05/20/NIO/</id>
+    <published>2020-05-20T09:34:13.000Z</published>
+    <updated>2020-05-20T05:33:24.517Z</updated>
     
     <summary type="html">
     
-      &lt;h3 id=&quot;丑数&quot;&gt;&lt;a href=&quot;#丑数&quot; class=&quot;headerlink&quot; title=&quot;丑数&quot;&gt;&lt;/a&gt;丑数&lt;/h3&gt;&lt;blockquote&gt;
-&lt;p&gt;题目描述：把只包含质因子2、3和5的数称作丑数（Ugly Number）。例如6、8都是丑数，但14不是，因为它包含质因子7。 习惯上我们把1当做是第一个丑数。求按从小到大的顺序的第N个丑数。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h4 id=&quot;解题思路&quot;&gt;&lt;a href=&quot;#解题思路&quot; class=&quot;headerlink&quot; title=&quot;解题思路&quot;&gt;&lt;/a&gt;解题思路&lt;/h4&gt;&lt;p&gt;所谓一个数m是另一个数n的因子，是指n能被m整除，也就是n % m == 0。根据丑数的定义，丑数只能被2、3、5整除，也就是说，如果一个数能被2整除，就连续除以2；如果能被3整除，就连续除以3；如果能被5整除，就连续除以5。如果最后得到的是1，那么这个数就是丑数，否则就不是。&lt;/p&gt;
+      &lt;h1 id=&quot;NIO-概述&quot;&gt;&lt;a href=&quot;#NIO-概述&quot; class=&quot;headerlink&quot; title=&quot;NIO 概述&quot;&gt;&lt;/a&gt;NIO 概述&lt;/h1&gt;&lt;p&gt;Java NIO 由以下几个核心部分组成：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Channels&lt;/li&gt;
+&lt;li&gt;Buffers&lt;/li&gt;
+&lt;li&gt;Selectors&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;虽然  Java NIO 中除此之外还有很多类和组件，但在我看来，Channel，Buffer 和 Selector 构成了核心的API。其它组件，如  Pipe 和 FileLock，只不过是与三个核心组件共同使用的工具类。因此，在概述中我将集中在这三个组件上。其它组件会在单独的章节中讲到。&lt;/p&gt;
     
     </summary>
     
     
-      <category term="数据结构与算法" scheme="https://jiangao66.github.io/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/"/>
+      <category term="NIO" scheme="https://jiangao66.github.io/categories/NIO/"/>
     
     
-      <category term="剑指offer" scheme="https://jiangao66.github.io/tags/%E5%89%91%E6%8C%87offer/"/>
-    
-      <category term="时间效率" scheme="https://jiangao66.github.io/tags/%E6%97%B6%E9%97%B4%E6%95%88%E7%8E%87/"/>
-    
-      <category term="空间效率" scheme="https://jiangao66.github.io/tags/%E7%A9%BA%E9%97%B4%E6%95%88%E7%8E%87/"/>
+      <category term="NIO" scheme="https://jiangao66.github.io/tags/NIO/"/>
     
   </entry>
   
   <entry>
-    <title>剑指offer题解笔记：时间效率</title>
-    <link href="https://jiangao66.github.io/2020/04/01/0ffer06/"/>
-    <id>https://jiangao66.github.io/2020/04/01/0ffer06/</id>
-    <published>2020-04-01T05:26:44.000Z</published>
-    <updated>2020-04-26T07:26:52.814Z</updated>
+    <title>由一道面试题理解类加载机制</title>
+    <link href="https://jiangao66.github.io/2020/05/19/JVM04/"/>
+    <id>https://jiangao66.github.io/2020/05/19/JVM04/</id>
+    <published>2020-05-19T09:34:13.000Z</published>
+    <updated>2020-05-20T05:24:13.083Z</updated>
     
     <summary type="html">
     
-      &lt;h3 id=&quot;连续子数组的最大和&quot;&gt;&lt;a href=&quot;#连续子数组的最大和&quot; class=&quot;headerlink&quot; title=&quot;连续子数组的最大和&quot;&gt;&lt;/a&gt;连续子数组的最大和&lt;/h3&gt;&lt;blockquote&gt;
-&lt;p&gt;题目描述：HZ偶尔会拿些专业问题来忽悠那些非计算机专业的同学。今天测试组开完会后,他又发话了:在古老的一维模式识别中,常常需要计算连续子向量的最大和,当向量全为正数的时候,问题很好解决。但是,如果向量中包含负数,是否应该包含某个负数,并期望旁边的正数会弥补它呢？例如:{6,-3,-2,7,-15,1,2,2},连续子向量的最大和为8(从第0个开始,到第3个为止)。给一个数组，返回它的最大连续子序列的和，你会不会被他忽悠住？(子向量的长度至少是1)&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h4 id=&quot;解题思路&quot;&gt;&lt;a href=&quot;#解题思路&quot; class=&quot;headerlink&quot; title=&quot;解题思路&quot;&gt;&lt;/a&gt;解题思路&lt;/h4&gt;&lt;p&gt;第一次看到这个题的时候，最直观的思路应该是想办法枚举所有子数组并求其和，但是一个长度为n的数组，枚举的子数组共有n(n+1)/2个，因此最快也需要O(n^2)时间。在算法题目中，凡是面对这种复杂度的解法，往往是不考虑这种解法的。&lt;/p&gt;
+      &lt;p&gt;本文将以一道常见的面试题去剖析一下JVM中的类加载机制。&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;public class ClassLoadTest&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    private static ClassLoaderTest test &amp;#x3D; new ClassLoad();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    static int x;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    static int y &amp;#x3D; 0;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    public ClassLoaderTest()&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        x++:&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        y++;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    public static void main(String[] args)&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        System.out.println(test.x);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        System.out.println(test.y);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
     
     </summary>
     
     
-      <category term="数据结构与算法" scheme="https://jiangao66.github.io/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/"/>
+      <category term="JVM虚拟机" scheme="https://jiangao66.github.io/categories/JVM%E8%99%9A%E6%8B%9F%E6%9C%BA/"/>
     
     
-      <category term="剑指offer" scheme="https://jiangao66.github.io/tags/%E5%89%91%E6%8C%87offer/"/>
+      <category term="JVM" scheme="https://jiangao66.github.io/tags/JVM/"/>
     
-      <category term="时间效率" scheme="https://jiangao66.github.io/tags/%E6%97%B6%E9%97%B4%E6%95%88%E7%8E%87/"/>
+      <category term="类加载" scheme="https://jiangao66.github.io/tags/%E7%B1%BB%E5%8A%A0%E8%BD%BD/"/>
     
   </entry>
   
   <entry>
-    <title>剑指offer题解笔记：数组</title>
-    <link href="https://jiangao66.github.io/2020/03/28/0ffer05/"/>
-    <id>https://jiangao66.github.io/2020/03/28/0ffer05/</id>
-    <published>2020-03-28T05:26:44.000Z</published>
-    <updated>2020-04-26T05:54:46.445Z</updated>
+    <title>JVM性能监控与故障处理工具</title>
+    <link href="https://jiangao66.github.io/2020/05/19/JVM05/"/>
+    <id>https://jiangao66.github.io/2020/05/19/JVM05/</id>
+    <published>2020-05-19T09:34:13.000Z</published>
+    <updated>2020-05-20T05:24:41.033Z</updated>
     
     <summary type="html">
     
-      &lt;h3 id=&quot;数组中重复的数字&quot;&gt;&lt;a href=&quot;#数组中重复的数字&quot; class=&quot;headerlink&quot; title=&quot;数组中重复的数字&quot;&gt;&lt;/a&gt;数组中重复的数字&lt;/h3&gt;&lt;blockquote&gt;
-&lt;p&gt;题目描述：在一个长度为n的数组里的所有数字都在0到n-1的范围内。 数组中某些数字是重复的，但不知道有几个数字是重复的。也不知道每个数字重复几次。请找出数组中任意一个重复的数字。 例如，如果输入长度为7的数组{2,3,1,0,2,5,3}，那么对应的输出是第一个重复的数字2。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h4 id=&quot;解题思路&quot;&gt;&lt;a href=&quot;#解题思路&quot; class=&quot;headerlink&quot; title=&quot;解题思路&quot;&gt;&lt;/a&gt;解题思路&lt;/h4&gt;&lt;p&gt;数组类题目解题往往是存在直观解法的，因为不管是一维数组还是二维数组，都可以直接通过双重for循环之类方法进行直接求解，但是这种解法的时间复杂度都是很高的，为此，在算法类题目中涉及到数组，往往不会使用多重循环求解。&lt;/p&gt;
+      &lt;h1 id=&quot;概述&quot;&gt;&lt;a href=&quot;#概述&quot; class=&quot;headerlink&quot; title=&quot;概述&quot;&gt;&lt;/a&gt;概述&lt;/h1&gt;&lt;p&gt;在给一个系统定位问题的时候，知识、经验是关键基础，而工具是运用知识去处理数据的手段，这里的数据在  JVM  中包括：运行日志、异常堆栈、GC日志、线程快照（threaddump/javacore文件）、堆转储快照（headdump/hprof文件）等。经常使用适当的虚拟机监控和分析的工具可以加快我们分析数据、定位解决问题的速度。但是下面介绍的所有工具，都只是对知识技能的一层“封装”，吃透底层原理才是最重要的，工具的使用是次要的。&lt;/p&gt;
     
     </summary>
     
     
-      <category term="数据结构与算法" scheme="https://jiangao66.github.io/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/"/>
+      <category term="JVM虚拟机" scheme="https://jiangao66.github.io/categories/JVM%E8%99%9A%E6%8B%9F%E6%9C%BA/"/>
     
     
-      <category term="剑指offer" scheme="https://jiangao66.github.io/tags/%E5%89%91%E6%8C%87offer/"/>
-    
-      <category term="数组" scheme="https://jiangao66.github.io/tags/%E6%95%B0%E7%BB%84/"/>
+      <category term="JVM" scheme="https://jiangao66.github.io/tags/JVM/"/>
     
   </entry>
   
   <entry>
-    <title>剑指offer题解笔记：位操作</title>
-    <link href="https://jiangao66.github.io/2020/03/25/0ffer04/"/>
-    <id>https://jiangao66.github.io/2020/03/25/0ffer04/</id>
-    <published>2020-03-25T05:26:44.000Z</published>
-    <updated>2020-04-26T05:55:08.658Z</updated>
+    <title>深入理解JVM虚拟机：类加载机制</title>
+    <link href="https://jiangao66.github.io/2020/05/17/JVM03/"/>
+    <id>https://jiangao66.github.io/2020/05/17/JVM03/</id>
+    <published>2020-05-17T09:34:13.000Z</published>
+    <updated>2020-05-20T05:23:45.824Z</updated>
     
     <summary type="html">
     
-      &lt;h3 id=&quot;位1的个数&quot;&gt;&lt;a href=&quot;#位1的个数&quot; class=&quot;headerlink&quot; title=&quot;位1的个数&quot;&gt;&lt;/a&gt;位1的个数&lt;/h3&gt;&lt;blockquote&gt;
-&lt;p&gt;题目描述： 编写一个函数，输入是一个无符号整数，返回其二进制表达式中数字位数为 ‘1’ 的个数。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h4 id=&quot;解题思路&quot;&gt;&lt;a href=&quot;#解题思路&quot; class=&quot;headerlink&quot; title=&quot;解题思路&quot;&gt;&lt;/a&gt;解题思路&lt;/h4&gt;&lt;p&gt;这个题的解法比较多，有位移法、位操作法、查表法、二次查表法等方法。甚至在java的工具类下面有一个bitCount()方法可以直接返回一个整数的二进制表达式中1的个数。&lt;br&gt;但是一般如果面试题中遇到这题，往往还是考察对位操作的使用。&lt;/p&gt;
+      &lt;p&gt;类是在运行期间第一次使用时动态加载的，而不是一次性加载。因为如果一次性加载，那么会占用很多的内存。 并且根据动态加载的特性，用户可以通过 Java 预定义的和自定义的类加载器，让一个本地的应用程序可以在运行时从网络或者其他地方加载一个二进制流作为程序代码的一部分，这种组装应用程序的方式目前已经广泛应用于&lt;br&gt;Java 程序之中，从最基础的 Applet 、 JSP 到相对复杂的 OSGI 技术，都是利用了 Java 运行时动态加载的特性。&lt;/p&gt;
+&lt;h3 id=&quot;一、类的生命周期&quot;&gt;&lt;a href=&quot;#一、类的生命周期&quot; class=&quot;headerlink&quot; title=&quot;一、类的生命周期&quot;&gt;&lt;/a&gt;一、类的生命周期&lt;/h3&gt;&lt;p&gt;&lt;img src=&quot;/img/JVM/%E7%B1%BB%E7%9A%84%E5%A3%B0%E6%98%8E%E5%91%A8%E6%9C%9F.jpg&quot; alt=&quot;类的声明周期&quot;&gt;&lt;/p&gt;
     
     </summary>
     
     
-      <category term="数据结构与算法" scheme="https://jiangao66.github.io/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/"/>
+      <category term="JVM虚拟机" scheme="https://jiangao66.github.io/categories/JVM%E8%99%9A%E6%8B%9F%E6%9C%BA/"/>
     
     
-      <category term="剑指offer" scheme="https://jiangao66.github.io/tags/%E5%89%91%E6%8C%87offer/"/>
+      <category term="JVM" scheme="https://jiangao66.github.io/tags/JVM/"/>
     
-      <category term="位操作" scheme="https://jiangao66.github.io/tags/%E4%BD%8D%E6%93%8D%E4%BD%9C/"/>
+      <category term="类加载机制" scheme="https://jiangao66.github.io/tags/%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6/"/>
     
   </entry>
   
   <entry>
-    <title>剑指offer题解笔记：树</title>
-    <link href="https://jiangao66.github.io/2020/03/23/0ffer03/"/>
-    <id>https://jiangao66.github.io/2020/03/23/0ffer03/</id>
-    <published>2020-03-23T05:26:44.000Z</published>
-    <updated>2020-04-26T05:55:57.496Z</updated>
+    <title>深入理解JVM虚拟机：垃圾收集、内存分配与回收策略</title>
+    <link href="https://jiangao66.github.io/2020/05/15/JVM02/"/>
+    <id>https://jiangao66.github.io/2020/05/15/JVM02/</id>
+    <published>2020-05-15T09:34:13.000Z</published>
+    <updated>2020-05-20T05:22:16.015Z</updated>
     
     <summary type="html">
     
-      &lt;h3 id=&quot;二叉树的下一个节点&quot;&gt;&lt;a href=&quot;#二叉树的下一个节点&quot; class=&quot;headerlink&quot; title=&quot;二叉树的下一个节点&quot;&gt;&lt;/a&gt;二叉树的下一个节点&lt;/h3&gt;&lt;blockquote&gt;
-&lt;p&gt;题目描述：给定一个二叉树和其中的一个结点，请找出中序遍历顺序的下一个结点并且返回。注意，树中的结点不仅包含左右子结点，同时包含指向父结点的指针。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;其中树的结构代码如下：&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;public class TreeLinkNode &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;   int val;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;   TreeLinkNode left &amp;#x3D; null;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;   TreeLinkNode right &amp;#x3D; null;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;   TreeLinkNode next &amp;#x3D; null; &amp;#x2F;&amp;#x2F;指向父节点&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;   TreeLinkNode(int val) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;       this.val &amp;#x3D; val;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;   &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+      &lt;p&gt;在&lt;code&gt;JDK1.8&lt;/code&gt;中，垃圾回收主要是针对堆区域进行的。因为栈区域中的程序计数器、虚拟机栈和本地方法栈这三个区域属于线程私有的，只存在于线程的生命周期内，线程结束后就会消失，因此不需要对这三个区域进行垃圾回收。&lt;/p&gt;
+&lt;p&gt;具体而言，栈中的栈帧随着方法的进入和退出而有条不紊的执行着入栈和出栈操作，每一个栈帧中分配多少内存基本上是在类结构确定下来的时候就已知的（尽管在运行期会由&lt;code&gt;JIT&lt;/code&gt;编译器进行一些优化，但是大体上可以认为是编译器可知的）。因此这些区域的内存分配和回收都具有确定性。而堆区域不一样，一个接口中的多个实现类需要的内存可能不一样，一个方法中的多个分支需要的内存也可能不一样，我们只有在程序运行期间才能知道会创建哪些对象，这部分的内存分配和回收都是动态的，并且常量池也在堆区域，因此  GC 主要关注于堆。&lt;/p&gt;
     
     </summary>
     
     
-      <category term="数据结构与算法" scheme="https://jiangao66.github.io/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/"/>
+      <category term="JVM虚拟机" scheme="https://jiangao66.github.io/categories/JVM%E8%99%9A%E6%8B%9F%E6%9C%BA/"/>
     
     
-      <category term="树" scheme="https://jiangao66.github.io/tags/%E6%A0%91/"/>
+      <category term="JVM" scheme="https://jiangao66.github.io/tags/JVM/"/>
     
-      <category term="剑指offer" scheme="https://jiangao66.github.io/tags/%E5%89%91%E6%8C%87offer/"/>
+      <category term="垃圾回收" scheme="https://jiangao66.github.io/tags/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/"/>
     
   </entry>
   
   <entry>
-    <title>剑指offer题解笔记：递归与循环</title>
-    <link href="https://jiangao66.github.io/2020/03/21/0ffer02/"/>
-    <id>https://jiangao66.github.io/2020/03/21/0ffer02/</id>
-    <published>2020-03-21T09:34:13.000Z</published>
-    <updated>2020-04-26T05:26:02.103Z</updated>
+    <title>设计模式：观察者模式</title>
+    <link href="https://jiangao66.github.io/2020/05/13/designPattern06/"/>
+    <id>https://jiangao66.github.io/2020/05/13/designPattern06/</id>
+    <published>2020-05-13T09:34:13.000Z</published>
+    <updated>2020-05-20T04:51:05.371Z</updated>
     
     <summary type="html">
     
-      &lt;h3 id=&quot;斐波拉契数列&quot;&gt;&lt;a href=&quot;#斐波拉契数列&quot; class=&quot;headerlink&quot; title=&quot;斐波拉契数列&quot;&gt;&lt;/a&gt;斐波拉契数列&lt;/h3&gt;&lt;blockquote&gt;
-&lt;p&gt;题目描述：大家都知道斐波那契数列，现在要求输入一个整数n，请你输出斐波那契数列的第n项（从0开始，第0项为0）。n&amp;lt;=39&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;斐波拉契数列应该是很多学生大一学习C语言时解决的一个问题，我记得那时候好像是用递归算法去解决的，然鹅稍微懂一些数据结构的小伙伴应该都知道，斐波拉契数列是最好不使用递归算法的，为什么呢，因为递归计算斐波拉契数列的时候重复计算项很多，而且越到后面计算量越来越爆炸，最后会导致运行超时，比如栈溢出等exception，如果我们使用递归，代码确实简洁了，比如下面：&lt;/p&gt;
+      &lt;p&gt;观察者模式定义了对象之间一对多的关系，这样一来，当一个对象状态改变时，它的所有依赖者都会收到通知并自动更新。&lt;/p&gt;
+&lt;p&gt;我们可以举个例子，比如报纸或者杂志的订阅，我们读者属于订阅者，报纸或者杂志属于出版者，那么：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;向某家报纸社订阅报纸，只要他们有新报纸出版，就会给读者送过去，只要你是他的订阅者，那么你就一直会收到新报纸。&lt;/li&gt;
+&lt;li&gt;当你不想再看报纸的时候，取消订阅，他们就不会再送新报纸过来了。&lt;/li&gt;
+&lt;li&gt;只要报纸社还在运营，就会一直有人向他们订阅报纸或者取消订阅报纸。&lt;/li&gt;
+&lt;/ol&gt;
     
     </summary>
     
     
-      <category term="数据结构与算法" scheme="https://jiangao66.github.io/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/"/>
+      <category term="设计模式" scheme="https://jiangao66.github.io/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
     
-      <category term="剑指offer" scheme="https://jiangao66.github.io/tags/%E5%89%91%E6%8C%87offer/"/>
-    
-      <category term="递归与循环" scheme="https://jiangao66.github.io/tags/%E9%80%92%E5%BD%92%E4%B8%8E%E5%BE%AA%E7%8E%AF/"/>
+      <category term="观察者模式" scheme="https://jiangao66.github.io/tags/%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F/"/>
     
   </entry>
   
   <entry>
-    <title>剑指offer题解笔记：链表</title>
-    <link href="https://jiangao66.github.io/2020/03/20/offer01/"/>
-    <id>https://jiangao66.github.io/2020/03/20/offer01/</id>
-    <published>2020-03-20T09:34:13.000Z</published>
-    <updated>2020-04-26T05:07:45.104Z</updated>
+    <title>设计模式：代理模式</title>
+    <link href="https://jiangao66.github.io/2020/05/13/designPattern05/"/>
+    <id>https://jiangao66.github.io/2020/05/13/designPattern05/</id>
+    <published>2020-05-13T09:34:13.000Z</published>
+    <updated>2020-05-20T04:50:31.424Z</updated>
     
     <summary type="html">
     
-      &lt;h3 id=&quot;链表中倒数第k个节点&quot;&gt;&lt;a href=&quot;#链表中倒数第k个节点&quot; class=&quot;headerlink&quot; title=&quot;链表中倒数第k个节点&quot;&gt;&lt;/a&gt;链表中倒数第k个节点&lt;/h3&gt;&lt;blockquote&gt;
-&lt;p&gt;题目描述：输入一个链表，输出该链表中倒数第k个节点。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;虽然最直观的思路往往不是最优解，但是我们在做算法题的时候还是需要从最直观的解法出发，不断优化现有思路或者参考他人解法来获取新的idea来解决问题，这样才能达到思维层面上的进步。&lt;br&gt;就这题而言，最直观的解法显然是先遍历链表，找到链表的长度length,然后再找到第length-k+1位置处的节点，就是需要的倒数第k个节点。那么可以很快的写出下面代码：&lt;/p&gt;
+      &lt;h1 id=&quot;代理模式简介&quot;&gt;&lt;a href=&quot;#代理模式简介&quot; class=&quot;headerlink&quot; title=&quot;代理模式简介&quot;&gt;&lt;/a&gt;代理模式简介&lt;/h1&gt;&lt;h2 id=&quot;定义&quot;&gt;&lt;a href=&quot;#定义&quot; class=&quot;headerlink&quot; title=&quot;定义&quot;&gt;&lt;/a&gt;定义&lt;/h2&gt;&lt;p&gt;通过代理，控制对对象的访问！使用代理模式可以详细控制某个（某类）对象的方法，在调用这个方法之前做前置处理，调用这个方法之后做后置处理（这也就是Spring的AOP的微观实现）。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;D:%5Cblog%5Csource_posts%5Cimg%5CdesignPattern%5C%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F.png&quot; alt=&quot;代理模式&quot;&gt;&lt;/p&gt;
     
     </summary>
     
     
-      <category term="数据结构与算法" scheme="https://jiangao66.github.io/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/"/>
+      <category term="设计模式" scheme="https://jiangao66.github.io/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
     
-      <category term="剑指offer" scheme="https://jiangao66.github.io/tags/%E5%89%91%E6%8C%87offer/"/>
-    
-      <category term="链表" scheme="https://jiangao66.github.io/tags/%E9%93%BE%E8%A1%A8/"/>
+      <category term="代理模式" scheme="https://jiangao66.github.io/tags/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/"/>
     
   </entry>
   
   <entry>
-    <title>排序算法比较与梳理</title>
-    <link href="https://jiangao66.github.io/2020/03/15/sort01/"/>
-    <id>https://jiangao66.github.io/2020/03/15/sort01/</id>
-    <published>2020-03-15T09:27:58.000Z</published>
-    <updated>2020-04-26T03:53:58.537Z</updated>
+    <title>破坏双亲委派加载机制</title>
+    <link href="https://jiangao66.github.io/2020/05/10/JVM06/"/>
+    <id>https://jiangao66.github.io/2020/05/10/JVM06/</id>
+    <published>2020-05-10T09:34:13.000Z</published>
+    <updated>2020-05-20T05:25:08.026Z</updated>
     
     <summary type="html">
     
-      &lt;h2 id=&quot;各类排序算法&quot;&gt;&lt;a href=&quot;#各类排序算法&quot; class=&quot;headerlink&quot; title=&quot;各类排序算法&quot;&gt;&lt;/a&gt;各类排序算法&lt;/h2&gt;&lt;p&gt;&lt;img src=&quot;/img/01sort/sort.png&quot; alt=&quot;排序算法复杂度&quot;&gt;&lt;/p&gt;
+      &lt;p&gt;双亲委派模型并不是一个强制性的约束模型，而是 Java 设计者推荐给开发者的类加载器实现方式。在 Java 的世界中大部分类加载器都遵循这个原则，但是显然也有例外。&lt;/p&gt;
+&lt;p&gt;在《深入理解 JVM 虚拟机》一书中，作者提出双亲委派模型目前出现过 3 次较大规模的“被破坏”情况。&lt;/p&gt;
+&lt;h3 id=&quot;第一次被破坏&quot;&gt;&lt;a href=&quot;#第一次被破坏&quot; class=&quot;headerlink&quot; title=&quot;第一次被破坏&quot;&gt;&lt;/a&gt;第一次被破坏&lt;/h3&gt;&lt;p&gt;第一次被破坏其实发生在双亲委派模型出现之前，也就是 JDK 1.2  发布之前，由于双亲委派模型在 JDK 1.2 之后才引入，而类加载器和抽象类 java.lang.ClassLoader 在 JDK 1.0  时代就已经存在，面对已经存在的用户自定义类加载器的实现代码，Java 设计者在引入双亲委派模型时不得不做出一些妥协。为了向前兼容，JDK 1.2  之后的 java.lang.ClassLoader 添加了一个新的 protected 方法 findClass()  方法，因为虚拟机在进行类加载的时候会调用加载器的私有方法 loadClassInternal()，而这个方法的唯一逻辑就是去调用自己的  loadClass()。双亲委派的具体逻辑就在这个方法之中，JDK 1.2 之后已经不再提倡用户再去覆盖 loadClass()  方法，而应当把自己的类加载器逻辑写到 findClass() 方法来完成加载，这样就可以保证写出来的类加载器都是符合双亲委派规则的。&lt;/p&gt;
     
     </summary>
     
     
-      <category term="数据结构与算法" scheme="https://jiangao66.github.io/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/"/>
+      <category term="JVM虚拟机" scheme="https://jiangao66.github.io/categories/JVM%E8%99%9A%E6%8B%9F%E6%9C%BA/"/>
     
     
-      <category term="排序算法" scheme="https://jiangao66.github.io/tags/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/"/>
+      <category term="JVM" scheme="https://jiangao66.github.io/tags/JVM/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>设计模式：适配器模式</title>
+    <link href="https://jiangao66.github.io/2020/05/09/designPattern04/"/>
+    <id>https://jiangao66.github.io/2020/05/09/designPattern04/</id>
+    <published>2020-05-09T09:34:13.000Z</published>
+    <updated>2020-05-19T14:34:38.437Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;将两种完全不同的事物联系到一起，就像现实生活中的变压器。假设一个手机充电器需要的电压是20V，但是正常的电压是220V，这时候就需要一个变压器，将220V的电压转换成20V的电压，这样，变压器就将20V的电压和手机联系起来了。&lt;/p&gt;
+&lt;h3 id=&quot;什么是适配器模式？&quot;&gt;&lt;a href=&quot;#什么是适配器模式？&quot; class=&quot;headerlink&quot; title=&quot;什么是适配器模式？&quot;&gt;&lt;/a&gt;什么是适配器模式？&lt;/h3&gt;&lt;p&gt;将一个类的接口转换成客户希望的另外一个接口，Adapter模式使得原本由于接口不兼容而不能一起工作的那些类可以一起工作。&lt;/p&gt;
+&lt;h3 id=&quot;模式中的角色&quot;&gt;&lt;a href=&quot;#模式中的角色&quot; class=&quot;headerlink&quot; title=&quot;模式中的角色&quot;&gt;&lt;/a&gt;模式中的角色&lt;/h3&gt;&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;目标接口（Target）&lt;/strong&gt;：客户所期待的接口，目标可以是具体的或抽象的类，也可以是接口。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;需要适配的类（Adaptee）&lt;/strong&gt;：需要适配的类或适配者类&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;适配器（Adapter）&lt;/strong&gt;：通过包装一个需要适配的对象，把原接口转换成目标接口。&lt;/li&gt;
+&lt;/ol&gt;
+    
+    </summary>
+    
+    
+      <category term="设计模式" scheme="https://jiangao66.github.io/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+    
+      <category term="适配器模式" scheme="https://jiangao66.github.io/tags/%E9%80%82%E9%85%8D%E5%99%A8%E6%A8%A1%E5%BC%8F/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>TCP/IP必知必会的10个问题</title>
+    <link href="https://jiangao66.github.io/2020/05/08/tcp02/"/>
+    <id>https://jiangao66.github.io/2020/05/08/tcp02/</id>
+    <published>2020-05-08T09:34:13.000Z</published>
+    <updated>2020-05-20T05:36:54.863Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;TCP-IP模型&quot;&gt;&lt;a href=&quot;#TCP-IP模型&quot; class=&quot;headerlink&quot; title=&quot;TCP/IP模型&quot;&gt;&lt;/a&gt;TCP/IP模型&lt;/h3&gt;&lt;p&gt;TCP/IP 协议模型（Transmission Control Protocol/Internet Protocol），包含了一系列构成互联网基础的网络协议，是 Internet 的核心协议。&lt;/p&gt;
+&lt;p&gt;基于 TCP/IP 的参考模型将协议分成四个层次，它们分别是链路层、网络层、传输层和应用层。下图表示 TCP/IP 模型与 OSI 模型各层的对照关系。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/img/tcp/0fa6c237-a909-4e2a-a771-2c5485cd8ce0.png&quot; alt=&quot;0fa6c237-a909-4e2a-a771-2c5485cd8ce0&quot;&gt;&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="计算机网络" scheme="https://jiangao66.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"/>
+    
+    
+      <category term="TCP" scheme="https://jiangao66.github.io/tags/TCP/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>设计模式：装饰者模式</title>
+    <link href="https://jiangao66.github.io/2020/05/07/designPattern03/"/>
+    <id>https://jiangao66.github.io/2020/05/07/designPattern03/</id>
+    <published>2020-05-07T09:34:13.000Z</published>
+    <updated>2020-05-20T04:50:04.381Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;装饰者模式&quot;&gt;&lt;a href=&quot;#装饰者模式&quot; class=&quot;headerlink&quot; title=&quot;装饰者模式&quot;&gt;&lt;/a&gt;装饰者模式&lt;/h1&gt;&lt;h3 id=&quot;1、意图&quot;&gt;&lt;a href=&quot;#1、意图&quot; class=&quot;headerlink&quot; title=&quot;1、意图&quot;&gt;&lt;/a&gt;1、意图&lt;/h3&gt;&lt;p&gt;动态的给一个对象添加额外的功能，装饰者模式是一种用于代替继承的技术，无须通过继承增加子类就能扩展对象的新功能。使用对象的关联关系代替继承关系，更加灵活，同时避免类型体系的快速膨胀。&lt;/p&gt;
+&lt;h3 id=&quot;2、适用环境&quot;&gt;&lt;a href=&quot;#2、适用环境&quot; class=&quot;headerlink&quot; title=&quot;2、适用环境&quot;&gt;&lt;/a&gt;2、适用环境&lt;/h3&gt;&lt;ol&gt;
+&lt;li&gt;在不影响其他对象的情况下，以动态、透明的方式给单个对象添加职责&lt;/li&gt;
+&lt;li&gt;处理那些可以撤销的职责&lt;/li&gt;
+&lt;li&gt;当不能采用生成子类的方法进行扩充时。一种情况是，可能有大量独立的扩展，为支持每一种组合将产生大量的子类，使得子类的数量爆炸增长。另一种情况可能是因为类定义被隐藏，或类定义不能用于生成子类。&lt;/li&gt;
+&lt;/ol&gt;
+    
+    </summary>
+    
+    
+      <category term="设计模式" scheme="https://jiangao66.github.io/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+    
+      <category term="装饰者模式" scheme="https://jiangao66.github.io/tags/%E8%A3%85%E9%A5%B0%E8%80%85%E6%A8%A1%E5%BC%8F/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>深入理解JVM虚拟机：Java运行时数据区域</title>
+    <link href="https://jiangao66.github.io/2020/05/06/JVM01/"/>
+    <id>https://jiangao66.github.io/2020/05/06/JVM01/</id>
+    <published>2020-05-06T09:34:13.000Z</published>
+    <updated>2020-05-20T05:19:53.011Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;Java运行时数据区域分析&quot;&gt;&lt;a href=&quot;#Java运行时数据区域分析&quot; class=&quot;headerlink&quot; title=&quot;Java运行时数据区域分析&quot;&gt;&lt;/a&gt;Java运行时数据区域分析&lt;/h2&gt;&lt;p&gt;&lt;code&gt;JDK1.8&lt;/code&gt;的&lt;code&gt;JVM&lt;/code&gt;运行时数据区域结构模型如下：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/img/JVM/jdk1.8-jvm.png&quot; alt=&quot;jdk1.8-jvm&quot;&gt;&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="JVM虚拟机" scheme="https://jiangao66.github.io/categories/JVM%E8%99%9A%E6%8B%9F%E6%9C%BA/"/>
+    
+    
+      <category term="JVM" scheme="https://jiangao66.github.io/tags/JVM/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>设计模式：工厂模式</title>
+    <link href="https://jiangao66.github.io/2020/05/05/designPattern02/"/>
+    <id>https://jiangao66.github.io/2020/05/05/designPattern02/</id>
+    <published>2020-05-05T09:34:13.000Z</published>
+    <updated>2020-05-20T04:49:41.643Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;创建型设计模式中的工厂模式可以细分为三种：分别是简单工厂模式、工厂方法模式、抽象工厂模式。&lt;/p&gt;
+&lt;h3 id=&quot;1、简单工厂模式&quot;&gt;&lt;a href=&quot;#1、简单工厂模式&quot; class=&quot;headerlink&quot; title=&quot;1、简单工厂模式&quot;&gt;&lt;/a&gt;1、简单工厂模式&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;定义&lt;/strong&gt;：在创建一个对象时不向客户暴露内部细节，并提供一个创建对象的通用接口。&lt;/p&gt;
+&lt;p&gt;简单工厂模式属于类的创建型模式，又叫做静态工厂模式。通过专门定义一个工厂类来负责创建其它类的实例，被创建的实例通常都具有共同的父类。需要注意的是，简单工厂模式不属于23种GOF设计模式之一。&lt;/p&gt;
+&lt;p&gt;简单工厂模式是由一个工厂对象决定创建出哪一种产品类的实例，简单工厂模式是工厂模式家族种最简单实用的模式，可以理解为是不同工厂模式的一个特殊实现。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="设计模式" scheme="https://jiangao66.github.io/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+    
+      <category term="工厂模式" scheme="https://jiangao66.github.io/tags/%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>ReentrantReadWriteLock读写锁源码分析</title>
+    <link href="https://jiangao66.github.io/2020/05/03/ReentrantReadWriteLock/"/>
+    <id>https://jiangao66.github.io/2020/05/03/ReentrantReadWriteLock/</id>
+    <published>2020-05-03T09:34:13.000Z</published>
+    <updated>2020-05-20T05:34:31.012Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;读写锁的概念&quot;&gt;&lt;a href=&quot;#读写锁的概念&quot; class=&quot;headerlink&quot; title=&quot;读写锁的概念&quot;&gt;&lt;/a&gt;读写锁的概念&lt;/h3&gt;&lt;p&gt;常见的锁（Synchronized 和 Lock  的实现类）基本都是排他锁，同一时刻只允许一个线程进行访问。提起 ReentrantReadWriteLock，不得不想起  ReentrantLock 这个可重入排他锁。实际上这两者之间没有太大关系，都是 Lock 的独立实现。&lt;/p&gt;
+&lt;p&gt;在介绍原理之前，先简单叙述一下什么是读写锁：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;读写锁在同一时刻可以允许多个读线程访问，但是在写线程访问时，所有的读线程和其它写线程均被阻塞。具体而言，一个线程要获取读锁的前提条件是：没有其它线程的写锁；没有写请求或者有写请求，但调用线程和持有锁的线程是同一个  。一个线程要获取写锁的前提条件是：没有其它线程的读锁；没有其它线程的写锁。&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+    
+      <category term="多线程" scheme="https://jiangao66.github.io/categories/%E5%A4%9A%E7%BA%BF%E7%A8%8B/"/>
+    
+    
+      <category term="锁" scheme="https://jiangao66.github.io/tags/%E9%94%81/"/>
+    
+      <category term="多线程" scheme="https://jiangao66.github.io/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>HTTP知识点总结</title>
+    <link href="https://jiangao66.github.io/2020/05/02/http03/"/>
+    <id>https://jiangao66.github.io/2020/05/02/http03/</id>
+    <published>2020-05-02T09:34:13.000Z</published>
+    <updated>2020-05-20T05:41:26.413Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;一-、基础概念&quot;&gt;&lt;a href=&quot;#一-、基础概念&quot; class=&quot;headerlink&quot; title=&quot;一 、基础概念&quot;&gt;&lt;/a&gt;一 、基础概念&lt;/h1&gt;&lt;h2 id=&quot;URI&quot;&gt;&lt;a href=&quot;#URI&quot; class=&quot;headerlink&quot; title=&quot;URI&quot;&gt;&lt;/a&gt;URI&lt;/h2&gt;&lt;p&gt;URI 包含 URL 和 URN。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/img/http/f66f9f573436858aeeb2ac3da732f5a9_720w.jpg&quot; alt=&quot;f66f9f573436858aeeb2ac3da732f5a9_720w&quot;&gt;&lt;/p&gt;
+&lt;h2 id=&quot;请求和响应报文&quot;&gt;&lt;a href=&quot;#请求和响应报文&quot; class=&quot;headerlink&quot; title=&quot;请求和响应报文&quot;&gt;&lt;/a&gt;请求和响应报文&lt;/h2&gt;&lt;h3 id=&quot;1-请求报文&quot;&gt;&lt;a href=&quot;#1-请求报文&quot; class=&quot;headerlink&quot; title=&quot;1. 请求报文&quot;&gt;&lt;/a&gt;1. 请求报文&lt;/h3&gt;&lt;p&gt;&lt;img src=&quot;/img/http/68747470733a2f2f67697465652e636f6d2f437943323031382f43532d4e6f7465732f7261772f6d61737465722f646f63732f706963732f485454505f526571756573744d6573736167654578616d706c652e706e67.png&quot; alt=&quot;68747470733a2f2f67697465652e636f6d2f437943323031382f43532d4e6f7465732f7261772f6d61737465722f646f63732f706963732f485454505f526571756573744d6573736167654578616d706c652e706e67&quot;&gt;&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="计算机网络" scheme="https://jiangao66.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"/>
+    
+    
+      <category term="http" scheme="https://jiangao66.github.io/tags/http/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Java中的锁分类</title>
+    <link href="https://jiangao66.github.io/2020/05/01/lock/"/>
+    <id>https://jiangao66.github.io/2020/05/01/lock/</id>
+    <published>2020-05-01T09:34:13.000Z</published>
+    <updated>2020-05-20T05:28:16.111Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Java提供了种类丰富的锁，每种锁因其特性的不同，在适当的场景下能够展现出非常高的效率。而我们在实际运用前，也需要对各种锁的分类要理解清楚，这样才能在项目中正确的使用锁。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/img/lock/7f749fc8.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="多线程" scheme="https://jiangao66.github.io/categories/%E5%A4%9A%E7%BA%BF%E7%A8%8B/"/>
+    
+    
+      <category term="锁" scheme="https://jiangao66.github.io/tags/%E9%94%81/"/>
+    
+      <category term="多线程" scheme="https://jiangao66.github.io/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>ThreadLocal源码分析</title>
+    <link href="https://jiangao66.github.io/2020/05/01/threadLocal/"/>
+    <id>https://jiangao66.github.io/2020/05/01/threadLocal/</id>
+    <published>2020-05-01T09:34:13.000Z</published>
+    <updated>2020-05-20T05:39:04.245Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;什么是ThreadLocal&quot;&gt;&lt;a href=&quot;#什么是ThreadLocal&quot; class=&quot;headerlink&quot; title=&quot;什么是ThreadLocal&quot;&gt;&lt;/a&gt;什么是ThreadLocal&lt;/h2&gt;&lt;p&gt;现代的软件开发过程中，并发是不可缺少的实现手段，由此带来的语言层面的切入点就是多线程，引入多线程开发后，自然要考虑多线程实现中的同步、互斥、线程安全等内容。因为这些需求就出现了以下三种来实现线程安全的手段：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;互斥同步：简单点理解就是通过加锁来实现对临界资源的访问限制。加锁方式有 Synchorized 和 Lock。&lt;/li&gt;
+&lt;li&gt;非阻塞同步：前面提到的互斥同步属于一种悲观锁机制，非阻塞同步属于乐观锁机制。典型的实现方式就是 CAS 操作。&lt;/li&gt;
+&lt;li&gt;无同步方案：要保证线程安全，并不是一定就需要同步，两者没有因果关系，同步只是保证共享数据征用时正确性的手段，如果一个方法本来就不涉及共享数据，那它就不需要任何同步措施去保证正确性。ThreadLocal 的概念就是从这里引申出来的。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;先通过下面这个实例来理解 ThreadLocal 的用法。先声明一个 ThreadLocal 对象，存储布尔类型的数值。然后分别在主线程中、Thread1、Thread2 中为 ThreadLocal 对象设置不同的数值：&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="多线程" scheme="https://jiangao66.github.io/categories/%E5%A4%9A%E7%BA%BF%E7%A8%8B/"/>
+    
+    
+      <category term="多线程" scheme="https://jiangao66.github.io/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Java中的I/O</title>
+    <link href="https://jiangao66.github.io/2020/04/27/IO/"/>
+    <id>https://jiangao66.github.io/2020/04/27/IO/</id>
+    <published>2020-04-27T09:34:13.000Z</published>
+    <updated>2020-05-20T05:09:48.448Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;一、概览&quot;&gt;&lt;a href=&quot;#一、概览&quot; class=&quot;headerlink&quot; title=&quot;一、概览&quot;&gt;&lt;/a&gt;一、概览&lt;/h1&gt;&lt;p&gt;Java 的 I/O 大概可以分成以下几类：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;磁盘操作：File&lt;/li&gt;
+&lt;li&gt;字节操作：InputStream 和 OutputStream&lt;/li&gt;
+&lt;li&gt;字符操作：Reader 和 Writer&lt;/li&gt;
+&lt;li&gt;对象操作：Serializable&lt;/li&gt;
+&lt;li&gt;网络操作：Socket&lt;/li&gt;
+&lt;li&gt;新的输入/输出：NIO&lt;/li&gt;
+&lt;/ul&gt;
+    
+    </summary>
+    
+    
+      <category term="Java" scheme="https://jiangao66.github.io/categories/Java/"/>
+    
+    
+      <category term="IO" scheme="https://jiangao66.github.io/tags/IO/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>设计模式：单例模式</title>
+    <link href="https://jiangao66.github.io/2020/04/26/designPattern01/"/>
+    <id>https://jiangao66.github.io/2020/04/26/designPattern01/</id>
+    <published>2020-04-26T09:34:13.000Z</published>
+    <updated>2020-05-19T14:29:13.224Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;一、单例模式&quot;&gt;&lt;a href=&quot;#一、单例模式&quot; class=&quot;headerlink&quot; title=&quot;一、单例模式&quot;&gt;&lt;/a&gt;一、单例模式&lt;/h3&gt;&lt;p&gt;在标准的23种设计模式种，单例设计模式在应用中是非常常见的，而我们在学习单例模式中，一定要考虑到和多线程结合起来时可能存在的各种问题以及其解决办法，这样我们才能写出一个在多线程环境下安全、正确的单例模式。&lt;/p&gt;
+&lt;p&gt;单例模式常见的有八种写法(更多时候分为六种，此处更加细分了)：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;饿汉式（静态常量）&lt;/li&gt;
+&lt;li&gt;饿汉式（静态代码块）&lt;/li&gt;
+&lt;li&gt;懒汉式（线程不安全）&lt;/li&gt;
+&lt;li&gt;懒汉式（线程安全，同步方法）&lt;/li&gt;
+&lt;li&gt;懒汉式（线程安全，同步代码块）&lt;/li&gt;
+&lt;li&gt;双重检查锁&lt;/li&gt;
+&lt;li&gt;静态内部类&lt;/li&gt;
+&lt;li&gt;枚举&lt;/li&gt;
+&lt;/ul&gt;
+    
+    </summary>
+    
+    
+      <category term="设计模式" scheme="https://jiangao66.github.io/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+    
+      <category term="单例模式" scheme="https://jiangao66.github.io/tags/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>并发编程中的AQS</title>
+    <link href="https://jiangao66.github.io/2020/04/25/AQS/"/>
+    <id>https://jiangao66.github.io/2020/04/25/AQS/</id>
+    <published>2020-04-25T09:34:13.000Z</published>
+    <updated>2020-05-20T04:36:34.271Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;`&lt;/p&gt;
+&lt;p&gt;java.util.concurrent&lt;code&gt;包（即面试必问的 J.U.C 包）提供了解决并发编程问题的办法，而&lt;/code&gt;java.util.concurrent.locks&lt;code&gt;中的类，以及常用的&lt;/code&gt;Semophore&lt;code&gt;等工具类，很多都是基于 AQS 实现的。 那么什么是 AQS 呢？其全称为&lt;/code&gt;AbstractQueuedSynchronizer`，即抽象队列同步器，一般简称为队列同步器。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="多线程" scheme="https://jiangao66.github.io/categories/%E5%A4%9A%E7%BA%BF%E7%A8%8B/"/>
+    
+    
+      <category term="多线程" scheme="https://jiangao66.github.io/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/"/>
+    
+      <category term="AQS" scheme="https://jiangao66.github.io/tags/AQS/"/>
     
   </entry>
   

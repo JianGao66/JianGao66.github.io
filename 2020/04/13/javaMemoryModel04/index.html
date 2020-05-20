@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/logo.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/logo.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/logo.png">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"jiangao66.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="volatile 的特性当我们声明共享变量为 volatile 后，对这个变量的读 &#x2F; 写将会很特别。理解 volatile 特性的一个好方法是：把对 volatile 变量的单个读 &#x2F; 写，看成是使用同一个监视器锁对这些单个读 &#x2F; 写操作做了同步。下面我们通过具体的示例来说明，请看下面的示例代码： 123456789101112131415class VolatileFeaturesExampl">
+<meta property="og:type" content="article">
+<meta property="og:title" content="深入理解Java内存模型（四）：volatile">
+<meta property="og:url" content="https://jiangao66.github.io/2020/04/13/javaMemoryModel04/index.html">
+<meta property="og:site_name" content="Blog">
+<meta property="og:description" content="volatile 的特性当我们声明共享变量为 volatile 后，对这个变量的读 &#x2F; 写将会很特别。理解 volatile 特性的一个好方法是：把对 volatile 变量的单个读 &#x2F; 写，看成是使用同一个监视器锁对这些单个读 &#x2F; 写操作做了同步。下面我们通过具体的示例来说明，请看下面的示例代码： 123456789101112131415class VolatileFeaturesExampl">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://jiangao66.github.io/img/multithreading01/3104638509c2c1b898c5e249cb30065a.png">
+<meta property="og:image" content="https://jiangao66.github.io/img/multithreading01/43e1cc4e89fdfd06eaa1c74d54f538ea.png">
+<meta property="og:image" content="https://jiangao66.github.io/img/multithreading01/0804d2efc97e45360eab1f76f9962c32.png">
+<meta property="og:image" content="https://jiangao66.github.io/img/multithreading01/0c0aa1f3b4de45f761412807eac3ce2a.png">
+<meta property="og:image" content="https://jiangao66.github.io/img/multithreading01/ab111a523fb0c0a12b894442e04719e6.png">
+<meta property="og:image" content="https://jiangao66.github.io/img/multithreading01/a066fb2bf821764981efb9ffaed26a00.png">
+<meta property="og:image" content="https://jiangao66.github.io/img/multithreading01/ad8f4acfd53faae8bec46d2e6e3f6e3d.png">
+<meta property="og:image" content="https://jiangao66.github.io/img/multithreading01/abf61fa3967e82c09a74787e63e68349.png">
+<meta property="article:published_time" content="2020-04-13T09:34:13.000Z">
+<meta property="article:modified_time" content="2020-05-20T05:14:12.841Z">
+<meta property="article:author" content="小小鱼">
+<meta property="article:tag" content="内存模型">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://jiangao66.github.io/img/multithreading01/3104638509c2c1b898c5e249cb30065a.png">
+
+<link rel="canonical" href="https://jiangao66.github.io/2020/04/13/javaMemoryModel04/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>深入理解Java内存模型（四）：volatile | Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/yourname" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://jiangao66.github.io/2020/04/13/javaMemoryModel04/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="小小鱼">
+      <meta itemprop="description" content="分享学习心得，记录学习过程">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          深入理解Java内存模型（四）：volatile
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-04-13 17:34:13" itemprop="dateCreated datePublished" datetime="2020-04-13T17:34:13+08:00">2020-04-13</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-05-20 13:14:12" itemprop="dateModified" datetime="2020-05-20T13:14:12+08:00">2020-05-20</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B/" itemprop="url" rel="index"><span itemprop="name">Java内存模型</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="volatile-的特性"><a href="#volatile-的特性" class="headerlink" title="volatile 的特性"></a>volatile 的特性</h2><p>当我们声明共享变量为 volatile 后，对这个变量的读 / 写将会很特别。理解 volatile 特性的一个好方法是：<strong>把对 volatile 变量的单个读 / 写，看成是使用同一个监视器锁对这些单个读 / 写操作做了同步</strong>。下面我们通过具体的示例来说明，请看下面的示例代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">class VolatileFeaturesExample &#123;</span><br><span class="line">    volatile long vl &#x3D; 0L;  &#x2F;&#x2F; 使用 volatile 声明 64 位的 long 型变量 </span><br><span class="line"></span><br><span class="line">    public void set(long l) &#123;</span><br><span class="line">        vl &#x3D; l;   &#x2F;&#x2F; 单个 volatile 变量的写 </span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void getAndIncrement () &#123;</span><br><span class="line">        vl++;    &#x2F;&#x2F; 复合（多个）volatile 变量的读 &#x2F; 写 </span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public long get() &#123;</span><br><span class="line">        return vl;   &#x2F;&#x2F; 单个 volatile 变量的读 </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<a id="more"></a>
+
+<p>假设有多个线程分别调用上面程序的三个方法，这个程序在语意上和下面程序等价：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">class VolatileFeaturesExample &#123;</span><br><span class="line">    long vl &#x3D; 0L;               &#x2F;&#x2F; 64 位的 long 型普通变量 </span><br><span class="line"></span><br><span class="line">    public synchronized void set(long l) &#123;     &#x2F;&#x2F; 对单个的普通 变量的写用同一个监视器同步 </span><br><span class="line">        vl &#x3D; l;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void getAndIncrement () &#123; &#x2F;&#x2F; 普通方法调用 </span><br><span class="line">        long temp &#x3D; get();           &#x2F;&#x2F; 调用已同步的读方法 </span><br><span class="line">        temp +&#x3D; 1L;                  &#x2F;&#x2F; 普通写操作 </span><br><span class="line">        set(temp);                   &#x2F;&#x2F; 调用已同步的写方法 </span><br><span class="line">    &#125;</span><br><span class="line">    public synchronized long get() &#123; </span><br><span class="line">    &#x2F;&#x2F; 对单个的普通变量的读用同一个监视器同步 </span><br><span class="line">        return vl;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如上面示例程序所示，对一个 volatile 变量的单个读 / 写操作，与对一个普通变量的读 / 写操作使用同一个监视器锁来同步，它们之间的执行效果相同。</p>
+<p>监视器锁的 happens-before 规则保证释放监视器和获取监视器的两个线程之间的内存可见性，<strong>这意味着对一个 volatile 变量的读，总是能看到（任意线程）对这个 volatile 变量最后的写入</strong>。</p>
+<p>监视器锁的语义决定了临界区代码的执行具有原子性。<strong>这意味着即使是 64 位的 long 型和 double 型变量，只要它是 volatile 变量，对该变量的读写就将具有原子性**</strong>。如果是多个 volatile 操作或类似于 volatile++ 这种复合操作，这些操作整体上不具有原子性。**</p>
+<p>简而言之，volatile 变量自身具有下列特性：</p>
+<ul>
+<li><strong>可见性：</strong>对一个 volatile 变量的读，总是能看到（任意线程）对这个 volatile 变量最后的写入。</li>
+<li><strong>原子性：</strong>对任意单个 volatile 变量的读 / 写具有原子性，但类似于 volatile++ 这种复合操作不具有原子性。</li>
+</ul>
+<h2 id="volatile-写-读建立的-happens-before-关系"><a href="#volatile-写-读建立的-happens-before-关系" class="headerlink" title="volatile 写 - 读建立的 happens before 关系"></a>volatile 写 - 读建立的 happens before 关系</h2><p>上面讲的是 volatile 变量自身的特性，对程序员来说，volatile 对线程的内存可见性的影响比 volatile 自身的特性更为重要，也更需要我们去关注。</p>
+<p>从 JSR-133 开始，<strong>volatile 变量的写 - 读可以实现线程之间的通信</strong>。</p>
+<p>从内存语义的角度来说，volatile 与监视器锁有相同的效果：volatile 写和监视器的释放有相同的内存语义；volatile 读与监视器的获取有相同的内存语义。</p>
+<p>请看下面使用 volatile 变量的示例代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">class VolatileExample &#123;</span><br><span class="line">    int a &#x3D; 0;</span><br><span class="line">    volatile boolean flag &#x3D; false;</span><br><span class="line"></span><br><span class="line">    public void writer() &#123;</span><br><span class="line">        a &#x3D; 1;                   &#x2F;&#x2F;1</span><br><span class="line">        flag &#x3D; true;             &#x2F;&#x2F;2</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void reader() &#123;</span><br><span class="line">        if (flag) &#123;               &#x2F;&#x2F;3</span><br><span class="line">            int i &#x3D;  a;           &#x2F;&#x2F;4</span><br><span class="line">            ……</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>假设线程 A 执行 writer() 方法之后，线程 B 执行 reader() 方法。根据 happens before 规则，这个过程建立的 happens before 关系可以分为两类：</p>
+<ol>
+<li>根据程序次序规则，1 happens before 2; 3 happens before 4。</li>
+<li>根据 volatile 规则，2 happens before 3。</li>
+<li>根据 happens before 的传递性规则，1 happens before 4。</li>
+</ol>
+<p>上述 happens before 关系的图形化表现形式如下：</p>
+<p><img src="/img/multithreading01/3104638509c2c1b898c5e249cb30065a.png" alt="3104638509c2c1b898c5e249cb30065a"></p>
+<p>在上图中，每一个箭头链接的两个节点，代表了一个 happens before 关系。黑色箭头表示程序顺序规则；橙色箭头表示 volatile 规则；蓝色箭头表示组合这些规则后提供的 happens before 保证。</p>
+<p><strong>这里 A 线程写一个 volatile 变量后，B 线程读同一个 volatile 变量。A 线程在写 volatile 变量之前所有可见的共享变量，在 B 线程读同一个 volatile 变量后，将立即变得对 B 线程可见。</strong></p>
+<h2 id="volatile-写-读的内存语义"><a href="#volatile-写-读的内存语义" class="headerlink" title="volatile 写 - 读的内存语义"></a>volatile 写 - 读的内存语义</h2><p>volatile 写的内存语义如下：</p>
+<ul>
+<li>当写一个 volatile 变量时，JMM 会把该线程对应的本地内存中的共享变量刷新到主内存。</li>
+</ul>
+<p>以上面示例程序  VolatileExample 为例，假设线程 A 首先执行 writer() 方法，随后线程 B 执行 reader()  方法，初始时两个线程的本地内存中的 flag 和 a 都是初始状态。下图是线程 A 执行 volatile 写后，共享变量的状态示意图：</p>
+<p><img src="/img/multithreading01/43e1cc4e89fdfd06eaa1c74d54f538ea.png" alt="43e1cc4e89fdfd06eaa1c74d54f538ea"></p>
+<p>如上图所示，线程 A 在写 flag 变量后，本地内存 A 中被线程 A 更新过的两个共享变量的值被刷新到主内存中。此时，本地内存 A 和主内存中的共享变量的值是一致的。</p>
+<p>volatile 读的内存语义如下：</p>
+<ul>
+<li>当读一个 volatile 变量时，JMM 会把该线程对应的本地内存置为无效。线程接下来将从主内存中读取共享变量。</li>
+</ul>
+<p>下面是线程 B 读同一个 volatile 变量后，共享变量的状态示意图：</p>
+<p><img src="/img/multithreading01/0804d2efc97e45360eab1f76f9962c32.png" alt="0804d2efc97e45360eab1f76f9962c32"></p>
+<p>如上图所示，在读 flag 变量后，本地内存 B 已经被置为无效。此时，线程 B 必须从主内存中读取共享变量。线程 B 的读取操作将导致本地内存 B 与主内存中的共享变量的值也变成一致的了。</p>
+<p>如果我们把 volatile 写和 volatile 读这两个步骤综合起来看的话，在读线程 B 读一个 volatile 变量后，写线程 A 在写这个 volatile 变量之前所有可见的共享变量的值都将立即变得对读线程 B 可见。</p>
+<p><strong>下面对 volatile 写和 volatile 读的内存语义做个总结</strong>：</p>
+<ul>
+<li>线程 A 写一个 volatile 变量，实质上是线程 A 向接下来将要读这个 volatile 变量的某个线程发出了（其对共享变量所在修改的）消息。</li>
+<li>线程 B 读一个 volatile 变量，实质上是线程 B 接收了之前某个线程发出的（在写这个 volatile 变量之前对共享变量所做修改的）消息。</li>
+<li>线程 A 写一个 volatile 变量，随后线程 B 读这个 volatile 变量，这个过程实质上是线程 A 通过主内存向线程 B 发送消息。</li>
+</ul>
+<h2 id="volatile-内存语义的实现"><a href="#volatile-内存语义的实现" class="headerlink" title="volatile 内存语义的实现"></a>volatile 内存语义的实现</h2><p>下面，让我们来看看 JMM 如何实现 volatile 写 / 读的内存语义。</p>
+<p>前文我们提到过重排序分为编译器重排序和处理器重排序。为了实现 volatile 内存语义，JMM 会分别限制这两种类型的重排序类型。下面是 JMM 针对编译器制定的 volatile 重排序规则表：</p>
+<table>
+<thead>
+<tr>
+<th>是否能重排序</th>
+<th>第二个操作</th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>第一个操作</td>
+<td>普通读 / 写</td>
+<td>volatile 读</td>
+<td>volatile 写</td>
+</tr>
+<tr>
+<td>普通读 / 写</td>
+<td></td>
+<td></td>
+<td>NO</td>
+</tr>
+<tr>
+<td>volatile 读</td>
+<td>NO</td>
+<td>NO</td>
+<td>NO</td>
+</tr>
+<tr>
+<td>volatile 写</td>
+<td></td>
+<td>NO</td>
+<td>NO</td>
+</tr>
+</tbody></table>
+<p>举例来说，第三行最后一个单元格的意思是：在程序顺序中，当第一个操作为普通变量的读或写时，如果第二个操作为 volatile 写，则编译器不能重排序这两个操作。</p>
+<p>从上表我们可以看出：</p>
+<ul>
+<li>当第二个操作是 volatile 写时，不管第一个操作是什么，都不能重排序。这个规则确保 volatile 写之前的操作不会被编译器重排序到 volatile 写之后。</li>
+<li>当第一个操作是 volatile 读时，不管第二个操作是什么，都不能重排序。这个规则确保 volatile 读之后的操作不会被编译器重排序到 volatile 读之前。</li>
+<li>当第一个操作是 volatile 写，第二个操作是 volatile 读时，不能重排序。</li>
+</ul>
+<p>为了实现  volatile  的内存语义，编译器在生成字节码时，会在指令序列中插入内存屏障来禁止特定类型的处理器重排序。对于编译器来说，发现一个最优布置来最小化插入屏障的总数几乎不可能，为此，JMM  采取保守策略。下面是基于保守策略的 JMM 内存屏障插入策略：</p>
+<ul>
+<li>在每个 volatile 写操作的前面插入一个 StoreStore 屏障。</li>
+<li>在每个 volatile 写操作的后面插入一个 StoreLoad 屏障。</li>
+<li>在每个 volatile 读操作的后面插入一个 LoadLoad 屏障。</li>
+<li>在每个 volatile 读操作的后面插入一个 LoadStore 屏障。</li>
+</ul>
+<p>上述内存屏障插入策略非常保守，但它可以保证在任意处理器平台，任意的程序中都能得到正确的 volatile 内存语义。</p>
+<p>下面是保守策略下，volatile 写插入内存屏障后生成的指令序列示意图：</p>
+<p><img src="/img/multithreading01/0c0aa1f3b4de45f761412807eac3ce2a.png" alt=""></p>
+<p>上图中的 StoreStore 屏障可以保证在 volatile 写之前，其前面的所有普通写操作已经对任意处理器可见了。这是因为 StoreStore 屏障将保障上面所有的普通写在 volatile 写之前刷新到主内存。</p>
+<p>这里比较有意思的是  volatile 写后面的 StoreLoad 屏障。这个屏障的作用是避免 volatile 写与后面可能有的 volatile 读 /  写操作重排序。因为编译器常常无法准确判断在一个 volatile 写的后面，是否需要插入一个 StoreLoad 屏障（比如，一个  volatile 写之后方法立即 return）。为了保证能正确实现 volatile 的内存语义，JMM 在这里采取了保守策略：在每个  volatile 写的后面或在每个 volatile 读的前面插入一个 StoreLoad 屏障。从整体执行效率的角度考虑，JMM 选择了在每个  volatile 写的后面插入一个 StoreLoad 屏障。因为 volatile 写 - 读内存语义的常见使用模式是：一个写线程写  volatile 变量，多个读线程读同一个 volatile 变量。当读线程的数量大大超过写线程时，选择在 volatile 写之后插入  StoreLoad 屏障将带来可观的执行效率的提升。从这里我们可以看到 JMM 在实现上的一个特点：<strong>首先确保正确性，然后再去追求执行效率</strong>。</p>
+<p>下面是在保守策略下，volatile 读插入内存屏障后生成的指令序列示意图：</p>
+<p><img src="/img/multithreading01/ab111a523fb0c0a12b894442e04719e6.png" alt="ab111a523fb0c0a12b894442e04719e6"></p>
+<p>上图中的 LoadLoad 屏障用来禁止处理器把上面的 volatile 读与下面的普通读重排序。LoadStore 屏障用来禁止处理器把上面的 volatile 读与下面的普通写重排序。</p>
+<p>上述 volatile 写和 volatile 读的内存屏障插入策略非常保守。在实际执行时，只要不改变 volatile 写 - 读的内存语义，编译器可以根据具体情况省略不必要的屏障。下面我们通过具体的示例代码来说明：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">class VolatileBarrierExample &#123;</span><br><span class="line">    int a;</span><br><span class="line">    volatile int v1 &#x3D; 1;</span><br><span class="line">    volatile int v2 &#x3D; 2;</span><br><span class="line"></span><br><span class="line">    void readAndWrite() &#123;</span><br><span class="line">        int i &#x3D; v1;           &#x2F;&#x2F; 第一个 volatile 读 </span><br><span class="line">        int j &#x3D; v2;           &#x2F;&#x2F; 第二个 volatile 读 </span><br><span class="line">        a &#x3D; i + j;            &#x2F;&#x2F; 普通写 </span><br><span class="line">        v1 &#x3D; i + 1;          &#x2F;&#x2F; 第一个 volatile 写 </span><br><span class="line">        v2 &#x3D; j * 2;          &#x2F;&#x2F; 第二个 volatile 写 </span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    …                    &#x2F;&#x2F; 其他方法 </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>针对 readAndWrite() 方法，编译器在生成字节码时可以做如下的优化：</p>
+<p><img src="/img/multithreading01/a066fb2bf821764981efb9ffaed26a00.png" alt="a066fb2bf821764981efb9ffaed26a00"></p>
+<p><strong>注意，最后的 StoreLoad 屏障不能省略。因为第二个 volatile 写之后，方法立即 return。此时编译器可能无法准确断定后面是否会有 volatile 读或写，为了安全起见，编译器常常会在这里插入一个 StoreLoad 屏障。</strong></p>
+<p>上面的优化是针对任意处理器平台，由于不同的处理器有不同“松紧度”的处理器内存模型，内存屏障的插入还可以根据具体的处理器内存模型继续优化。以 x86 处理器为例，上图中除最后的 StoreLoad 屏障外，其它的屏障都会被省略。</p>
+<p>前面保守策略下的 volatile 读和写，在 x86 处理器平台可以优化成：</p>
+<p><img src="/img/multithreading01/ad8f4acfd53faae8bec46d2e6e3f6e3d.png" alt="ad8f4acfd53faae8bec46d2e6e3f6e3d"></p>
+<p>前文提到过，x86 处理器仅会对写 - 读操作做重排序。X86 不会对<strong>读 - 读</strong>，<strong>读 - 写</strong>和<strong>写 - 写</strong>操作做重排序，因此在  x86 处理器中会省略掉这三种操作类型对应的内存屏障。在 x86 中，JMM 仅需在 volatile 写后面插入一个 StoreLoad  屏障即可正确实现 volatile 写 - 读的内存语义。这意味着在 x86 处理器中，volatile 写的开销比 volatile  读的开销会大很多（因为执行 StoreLoad 屏障开销会比较大）。</p>
+<h2 id="JSR-133-为什么要增强-volatile-的内存语义"><a href="#JSR-133-为什么要增强-volatile-的内存语义" class="headerlink" title="JSR-133 为什么要增强 volatile 的内存语义"></a>JSR-133 为什么要增强 volatile 的内存语义</h2><p>在  JSR-133 之前的旧 Java 内存模型中，虽然不允许 volatile 变量之间重排序，但旧的 Java 内存模型允许 volatile  变量与普通变量之间重排序。在旧的内存模型中，VolatileExample 示例程序可能被重排序成下列时序来执行：</p>
+<p><img src="/img/multithreading01/abf61fa3967e82c09a74787e63e68349.png" alt="abf61fa3967e82c09a74787e63e68349"></p>
+<p>在旧的内存模型中，当 1 和 2 之间没有数据依赖关系时，1 和 2 之间就可能被重排序（3 和 4 类似）。其结果就是：读线程 B 执行 4 时，不一定能看到写线程 A 在执行 1 时对共享变量的修改。</p>
+<p>因此在旧的内存模型中  ，volatile 的写 - 读没有监视器的释放 - 获所具有的内存语义。为了提供一种比监视器锁更轻量级的线程之间通信的机制，JSR-133  专家组决定增强 volatile 的内存语义：严格限制编译器和处理器对 volatile 变量与普通变量的重排序，确保 volatile 的写 -  读和监视器的释放 - 获取一样，具有相同的内存语义。从编译器重排序规则和处理器内存屏障插入策略来看，只要 volatile  变量与普通变量之间的重排序可能会破坏 volatile 的内存语意，这种重排序就会被编译器重排序规则和处理器内存屏障插入策略禁止。</p>
+<p>由于 volatile 仅仅保证对单个 volatile 变量的读 / 写具有原子性，而监视器锁的互斥执行的特性可以确保对整个临界区代码的执行具有原子性。<strong>在功能上，监视器锁比 volatile 更强大；在可伸缩性和执行性能上，volatile 更有优势</strong>。如果读者想在程序中用 volatile 代替监视器锁，请一定谨慎。</p>
+<p>本文转载自《Java并发编程的艺术》作者之一程晓明的博客：<a href="https://www.infoq.cn/article/java-memory-model-4" target="_blank" rel="noopener">深入理解 Java 内存模型（四）— volatile</a></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B/" rel="tag"><i class="fa fa-tag"></i> 内存模型</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/04/11/javaMemoryModel03/" rel="prev" title="深入理解Java内存模型（三）：顺序一致性">
+      <i class="fa fa-chevron-left"></i> 深入理解Java内存模型（三）：顺序一致性
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/04/15/javaMemoryModel05/" rel="next" title="深入理解Java内存模型（五）：锁">
+      深入理解Java内存模型（五）：锁 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#volatile-的特性"><span class="nav-number">1.</span> <span class="nav-text">volatile 的特性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#volatile-写-读建立的-happens-before-关系"><span class="nav-number">2.</span> <span class="nav-text">volatile 写 - 读建立的 happens before 关系</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#volatile-写-读的内存语义"><span class="nav-number">3.</span> <span class="nav-text">volatile 写 - 读的内存语义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#volatile-内存语义的实现"><span class="nav-number">4.</span> <span class="nav-text">volatile 内存语义的实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JSR-133-为什么要增强-volatile-的内存语义"><span class="nav-number">5.</span> <span class="nav-text">JSR-133 为什么要增强 volatile 的内存语义</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="小小鱼"
+      src="/images/header.jpg">
+  <p class="site-author-name" itemprop="name">小小鱼</p>
+  <div class="site-description" itemprop="description">分享学习心得，记录学习过程</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">47</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/JianGao66" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;JianGao66" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:2517550801@qq.com" title="E-Mail → mailto:2517550801@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/atom.xml" title="RSS → &#x2F;atom.xml"><i class="fa fa-rss fa-fw"></i>RSS</a>
+      </span>
+  </div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heartbeat"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">小小鱼</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+  
+  <script type="text/javascript"
+  color="0,0,255" opacity='0.7' zIndex="-2" count="99" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+  
+  
+</body>
+</html>

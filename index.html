@@ -184,7 +184,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://jiangao66.github.io/2020/04/04/0ffer07/">
+    <link itemprop="mainEntityOfPage" href="https://jiangao66.github.io/2020/05/20/NIO/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/header.jpg">
@@ -198,7 +198,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/04/04/0ffer07/" class="post-title-link" itemprop="url">剑指offer题解笔记：时间效率和空间效率的平衡</a>
+            <a href="/2020/05/20/NIO/" class="post-title-link" itemprop="url">Java中的NIO</a>
         </h2>
 
         <div class="post-meta">
@@ -207,23 +207,17 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
+              
 
-              <time title="创建时间：2020-04-04 13:26:44" itemprop="dateCreated datePublished" datetime="2020-04-04T13:26:44+08:00">2020-04-04</time>
+              <time title="创建时间：2020-05-20 17:34:13 / 修改时间：13:33:24" itemprop="dateCreated datePublished" datetime="2020-05-20T17:34:13+08:00">2020-05-20</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-04-26 15:05:45" itemprop="dateModified" datetime="2020-04-26T15:05:45+08:00">2020-04-26</time>
-              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">数据结构与算法</span></a>
+                  <a href="/categories/NIO/" itemprop="url" rel="index"><span itemprop="name">NIO</span></a>
                 </span>
             </span>
 
@@ -238,13 +232,16 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h3 id="丑数"><a href="#丑数" class="headerlink" title="丑数"></a>丑数</h3><blockquote>
-<p>题目描述：把只包含质因子2、3和5的数称作丑数（Ugly Number）。例如6、8都是丑数，但14不是，因为它包含质因子7。 习惯上我们把1当做是第一个丑数。求按从小到大的顺序的第N个丑数。</p>
-</blockquote>
-<h4 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h4><p>所谓一个数m是另一个数n的因子，是指n能被m整除，也就是n % m == 0。根据丑数的定义，丑数只能被2、3、5整除，也就是说，如果一个数能被2整除，就连续除以2；如果能被3整除，就连续除以3；如果能被5整除，就连续除以5。如果最后得到的是1，那么这个数就是丑数，否则就不是。</p>
+          <h1 id="NIO-概述"><a href="#NIO-概述" class="headerlink" title="NIO 概述"></a>NIO 概述</h1><p>Java NIO 由以下几个核心部分组成：</p>
+<ul>
+<li>Channels</li>
+<li>Buffers</li>
+<li>Selectors</li>
+</ul>
+<p>虽然  Java NIO 中除此之外还有很多类和组件，但在我看来，Channel，Buffer 和 Selector 构成了核心的API。其它组件，如  Pipe 和 FileLock，只不过是与三个核心组件共同使用的工具类。因此，在概述中我将集中在这三个组件上。其它组件会在单独的章节中讲到。</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2020/04/04/0ffer07/#more" rel="contents">
+              <a class="btn" href="/2020/05/20/NIO/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -268,7 +265,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://jiangao66.github.io/2020/04/01/0ffer06/">
+    <link itemprop="mainEntityOfPage" href="https://jiangao66.github.io/2020/05/19/JVM04/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/header.jpg">
@@ -282,7 +279,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/04/01/0ffer06/" class="post-title-link" itemprop="url">剑指offer题解笔记：时间效率</a>
+            <a href="/2020/05/19/JVM04/" class="post-title-link" itemprop="url">由一道面试题理解类加载机制</a>
         </h2>
 
         <div class="post-meta">
@@ -292,14 +289,14 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2020-04-01 13:26:44" itemprop="dateCreated datePublished" datetime="2020-04-01T13:26:44+08:00">2020-04-01</time>
+              <time title="创建时间：2020-05-19 17:34:13" itemprop="dateCreated datePublished" datetime="2020-05-19T17:34:13+08:00">2020-05-19</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-04-26 15:26:52" itemprop="dateModified" datetime="2020-04-26T15:26:52+08:00">2020-04-26</time>
+                <time title="修改时间：2020-05-20 13:24:13" itemprop="dateModified" datetime="2020-05-20T13:24:13+08:00">2020-05-20</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -307,7 +304,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">数据结构与算法</span></a>
+                  <a href="/categories/JVM%E8%99%9A%E6%8B%9F%E6%9C%BA/" itemprop="url" rel="index"><span itemprop="name">JVM虚拟机</span></a>
                 </span>
             </span>
 
@@ -322,13 +319,11 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h3 id="连续子数组的最大和"><a href="#连续子数组的最大和" class="headerlink" title="连续子数组的最大和"></a>连续子数组的最大和</h3><blockquote>
-<p>题目描述：HZ偶尔会拿些专业问题来忽悠那些非计算机专业的同学。今天测试组开完会后,他又发话了:在古老的一维模式识别中,常常需要计算连续子向量的最大和,当向量全为正数的时候,问题很好解决。但是,如果向量中包含负数,是否应该包含某个负数,并期望旁边的正数会弥补它呢？例如:{6,-3,-2,7,-15,1,2,2},连续子向量的最大和为8(从第0个开始,到第3个为止)。给一个数组，返回它的最大连续子序列的和，你会不会被他忽悠住？(子向量的长度至少是1)</p>
-</blockquote>
-<h4 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h4><p>第一次看到这个题的时候，最直观的思路应该是想办法枚举所有子数组并求其和，但是一个长度为n的数组，枚举的子数组共有n(n+1)/2个，因此最快也需要O(n^2)时间。在算法题目中，凡是面对这种复杂度的解法，往往是不考虑这种解法的。</p>
+          <p>本文将以一道常见的面试题去剖析一下JVM中的类加载机制。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">public class ClassLoadTest&#123;</span><br><span class="line">    private static ClassLoaderTest test &#x3D; new ClassLoad();</span><br><span class="line">    </span><br><span class="line">    static int x;</span><br><span class="line">    static int y &#x3D; 0;</span><br><span class="line">    </span><br><span class="line">    public ClassLoaderTest()&#123;</span><br><span class="line">        x++:</span><br><span class="line">        y++;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    public static void main(String[] args)&#123;</span><br><span class="line">        System.out.println(test.x);</span><br><span class="line">        System.out.println(test.y);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2020/04/01/0ffer06/#more" rel="contents">
+              <a class="btn" href="/2020/05/19/JVM04/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -352,7 +347,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://jiangao66.github.io/2020/03/28/0ffer05/">
+    <link itemprop="mainEntityOfPage" href="https://jiangao66.github.io/2020/05/19/JVM05/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/header.jpg">
@@ -366,7 +361,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/03/28/0ffer05/" class="post-title-link" itemprop="url">剑指offer题解笔记：数组</a>
+            <a href="/2020/05/19/JVM05/" class="post-title-link" itemprop="url">JVM性能监控与故障处理工具</a>
         </h2>
 
         <div class="post-meta">
@@ -376,14 +371,14 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2020-03-28 13:26:44" itemprop="dateCreated datePublished" datetime="2020-03-28T13:26:44+08:00">2020-03-28</time>
+              <time title="创建时间：2020-05-19 17:34:13" itemprop="dateCreated datePublished" datetime="2020-05-19T17:34:13+08:00">2020-05-19</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-04-26 13:54:46" itemprop="dateModified" datetime="2020-04-26T13:54:46+08:00">2020-04-26</time>
+                <time title="修改时间：2020-05-20 13:24:41" itemprop="dateModified" datetime="2020-05-20T13:24:41+08:00">2020-05-20</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -391,7 +386,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">数据结构与算法</span></a>
+                  <a href="/categories/JVM%E8%99%9A%E6%8B%9F%E6%9C%BA/" itemprop="url" rel="index"><span itemprop="name">JVM虚拟机</span></a>
                 </span>
             </span>
 
@@ -406,13 +401,10 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h3 id="数组中重复的数字"><a href="#数组中重复的数字" class="headerlink" title="数组中重复的数字"></a>数组中重复的数字</h3><blockquote>
-<p>题目描述：在一个长度为n的数组里的所有数字都在0到n-1的范围内。 数组中某些数字是重复的，但不知道有几个数字是重复的。也不知道每个数字重复几次。请找出数组中任意一个重复的数字。 例如，如果输入长度为7的数组{2,3,1,0,2,5,3}，那么对应的输出是第一个重复的数字2。</p>
-</blockquote>
-<h4 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h4><p>数组类题目解题往往是存在直观解法的，因为不管是一维数组还是二维数组，都可以直接通过双重for循环之类方法进行直接求解，但是这种解法的时间复杂度都是很高的，为此，在算法类题目中涉及到数组，往往不会使用多重循环求解。</p>
+          <h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><p>在给一个系统定位问题的时候，知识、经验是关键基础，而工具是运用知识去处理数据的手段，这里的数据在  JVM  中包括：运行日志、异常堆栈、GC日志、线程快照（threaddump/javacore文件）、堆转储快照（headdump/hprof文件）等。经常使用适当的虚拟机监控和分析的工具可以加快我们分析数据、定位解决问题的速度。但是下面介绍的所有工具，都只是对知识技能的一层“封装”，吃透底层原理才是最重要的，工具的使用是次要的。</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2020/03/28/0ffer05/#more" rel="contents">
+              <a class="btn" href="/2020/05/19/JVM05/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -436,7 +428,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://jiangao66.github.io/2020/03/25/0ffer04/">
+    <link itemprop="mainEntityOfPage" href="https://jiangao66.github.io/2020/05/17/JVM03/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/header.jpg">
@@ -450,7 +442,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/03/25/0ffer04/" class="post-title-link" itemprop="url">剑指offer题解笔记：位操作</a>
+            <a href="/2020/05/17/JVM03/" class="post-title-link" itemprop="url">深入理解JVM虚拟机：类加载机制</a>
         </h2>
 
         <div class="post-meta">
@@ -460,14 +452,14 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2020-03-25 13:26:44" itemprop="dateCreated datePublished" datetime="2020-03-25T13:26:44+08:00">2020-03-25</time>
+              <time title="创建时间：2020-05-17 17:34:13" itemprop="dateCreated datePublished" datetime="2020-05-17T17:34:13+08:00">2020-05-17</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-04-26 13:55:08" itemprop="dateModified" datetime="2020-04-26T13:55:08+08:00">2020-04-26</time>
+                <time title="修改时间：2020-05-20 13:23:45" itemprop="dateModified" datetime="2020-05-20T13:23:45+08:00">2020-05-20</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -475,7 +467,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">数据结构与算法</span></a>
+                  <a href="/categories/JVM%E8%99%9A%E6%8B%9F%E6%9C%BA/" itemprop="url" rel="index"><span itemprop="name">JVM虚拟机</span></a>
                 </span>
             </span>
 
@@ -490,13 +482,11 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h3 id="位1的个数"><a href="#位1的个数" class="headerlink" title="位1的个数"></a>位1的个数</h3><blockquote>
-<p>题目描述： 编写一个函数，输入是一个无符号整数，返回其二进制表达式中数字位数为 ‘1’ 的个数。</p>
-</blockquote>
-<h4 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h4><p>这个题的解法比较多，有位移法、位操作法、查表法、二次查表法等方法。甚至在java的工具类下面有一个bitCount()方法可以直接返回一个整数的二进制表达式中1的个数。<br>但是一般如果面试题中遇到这题，往往还是考察对位操作的使用。</p>
+          <p>类是在运行期间第一次使用时动态加载的，而不是一次性加载。因为如果一次性加载，那么会占用很多的内存。 并且根据动态加载的特性，用户可以通过 Java 预定义的和自定义的类加载器，让一个本地的应用程序可以在运行时从网络或者其他地方加载一个二进制流作为程序代码的一部分，这种组装应用程序的方式目前已经广泛应用于<br>Java 程序之中，从最基础的 Applet 、 JSP 到相对复杂的 OSGI 技术，都是利用了 Java 运行时动态加载的特性。</p>
+<h3 id="一、类的生命周期"><a href="#一、类的生命周期" class="headerlink" title="一、类的生命周期"></a>一、类的生命周期</h3><p><img src="/img/JVM/%E7%B1%BB%E7%9A%84%E5%A3%B0%E6%98%8E%E5%91%A8%E6%9C%9F.jpg" alt="类的声明周期"></p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2020/03/25/0ffer04/#more" rel="contents">
+              <a class="btn" href="/2020/05/17/JVM03/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -520,7 +510,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://jiangao66.github.io/2020/03/23/0ffer03/">
+    <link itemprop="mainEntityOfPage" href="https://jiangao66.github.io/2020/05/15/JVM02/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/header.jpg">
@@ -534,7 +524,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/03/23/0ffer03/" class="post-title-link" itemprop="url">剑指offer题解笔记：树</a>
+            <a href="/2020/05/15/JVM02/" class="post-title-link" itemprop="url">深入理解JVM虚拟机：垃圾收集、内存分配与回收策略</a>
         </h2>
 
         <div class="post-meta">
@@ -544,14 +534,14 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2020-03-23 13:26:44" itemprop="dateCreated datePublished" datetime="2020-03-23T13:26:44+08:00">2020-03-23</time>
+              <time title="创建时间：2020-05-15 17:34:13" itemprop="dateCreated datePublished" datetime="2020-05-15T17:34:13+08:00">2020-05-15</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-04-26 13:55:57" itemprop="dateModified" datetime="2020-04-26T13:55:57+08:00">2020-04-26</time>
+                <time title="修改时间：2020-05-20 13:22:16" itemprop="dateModified" datetime="2020-05-20T13:22:16+08:00">2020-05-20</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -559,7 +549,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">数据结构与算法</span></a>
+                  <a href="/categories/JVM%E8%99%9A%E6%8B%9F%E6%9C%BA/" itemprop="url" rel="index"><span itemprop="name">JVM虚拟机</span></a>
                 </span>
             </span>
 
@@ -574,14 +564,11 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h3 id="二叉树的下一个节点"><a href="#二叉树的下一个节点" class="headerlink" title="二叉树的下一个节点"></a>二叉树的下一个节点</h3><blockquote>
-<p>题目描述：给定一个二叉树和其中的一个结点，请找出中序遍历顺序的下一个结点并且返回。注意，树中的结点不仅包含左右子结点，同时包含指向父结点的指针。</p>
-</blockquote>
-<p>其中树的结构代码如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">public class TreeLinkNode &#123;</span><br><span class="line">   int val;</span><br><span class="line">   TreeLinkNode left &#x3D; null;</span><br><span class="line">   TreeLinkNode right &#x3D; null;</span><br><span class="line">   TreeLinkNode next &#x3D; null; &#x2F;&#x2F;指向父节点</span><br><span class="line"></span><br><span class="line">   TreeLinkNode(int val) &#123;</span><br><span class="line">       this.val &#x3D; val;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          <p>在<code>JDK1.8</code>中，垃圾回收主要是针对堆区域进行的。因为栈区域中的程序计数器、虚拟机栈和本地方法栈这三个区域属于线程私有的，只存在于线程的生命周期内，线程结束后就会消失，因此不需要对这三个区域进行垃圾回收。</p>
+<p>具体而言，栈中的栈帧随着方法的进入和退出而有条不紊的执行着入栈和出栈操作，每一个栈帧中分配多少内存基本上是在类结构确定下来的时候就已知的（尽管在运行期会由<code>JIT</code>编译器进行一些优化，但是大体上可以认为是编译器可知的）。因此这些区域的内存分配和回收都具有确定性。而堆区域不一样，一个接口中的多个实现类需要的内存可能不一样，一个方法中的多个分支需要的内存也可能不一样，我们只有在程序运行期间才能知道会创建哪些对象，这部分的内存分配和回收都是动态的，并且常量池也在堆区域，因此  GC 主要关注于堆。</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2020/03/23/0ffer03/#more" rel="contents">
+              <a class="btn" href="/2020/05/15/JVM02/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -605,7 +592,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://jiangao66.github.io/2020/03/21/0ffer02/">
+    <link itemprop="mainEntityOfPage" href="https://jiangao66.github.io/2020/05/13/designPattern06/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/header.jpg">
@@ -619,7 +606,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/03/21/0ffer02/" class="post-title-link" itemprop="url">剑指offer题解笔记：递归与循环</a>
+            <a href="/2020/05/13/designPattern06/" class="post-title-link" itemprop="url">设计模式：观察者模式</a>
         </h2>
 
         <div class="post-meta">
@@ -629,14 +616,14 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2020-03-21 17:34:13" itemprop="dateCreated datePublished" datetime="2020-03-21T17:34:13+08:00">2020-03-21</time>
+              <time title="创建时间：2020-05-13 17:34:13" itemprop="dateCreated datePublished" datetime="2020-05-13T17:34:13+08:00">2020-05-13</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-04-26 13:26:02" itemprop="dateModified" datetime="2020-04-26T13:26:02+08:00">2020-04-26</time>
+                <time title="修改时间：2020-05-20 12:51:05" itemprop="dateModified" datetime="2020-05-20T12:51:05+08:00">2020-05-20</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -644,7 +631,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">数据结构与算法</span></a>
+                  <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" itemprop="url" rel="index"><span itemprop="name">设计模式</span></a>
                 </span>
             </span>
 
@@ -659,13 +646,16 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h3 id="斐波拉契数列"><a href="#斐波拉契数列" class="headerlink" title="斐波拉契数列"></a>斐波拉契数列</h3><blockquote>
-<p>题目描述：大家都知道斐波那契数列，现在要求输入一个整数n，请你输出斐波那契数列的第n项（从0开始，第0项为0）。n&lt;=39</p>
-</blockquote>
-<p>斐波拉契数列应该是很多学生大一学习C语言时解决的一个问题，我记得那时候好像是用递归算法去解决的，然鹅稍微懂一些数据结构的小伙伴应该都知道，斐波拉契数列是最好不使用递归算法的，为什么呢，因为递归计算斐波拉契数列的时候重复计算项很多，而且越到后面计算量越来越爆炸，最后会导致运行超时，比如栈溢出等exception，如果我们使用递归，代码确实简洁了，比如下面：</p>
+          <p>观察者模式定义了对象之间一对多的关系，这样一来，当一个对象状态改变时，它的所有依赖者都会收到通知并自动更新。</p>
+<p>我们可以举个例子，比如报纸或者杂志的订阅，我们读者属于订阅者，报纸或者杂志属于出版者，那么：</p>
+<ol>
+<li>向某家报纸社订阅报纸，只要他们有新报纸出版，就会给读者送过去，只要你是他的订阅者，那么你就一直会收到新报纸。</li>
+<li>当你不想再看报纸的时候，取消订阅，他们就不会再送新报纸过来了。</li>
+<li>只要报纸社还在运营，就会一直有人向他们订阅报纸或者取消订阅报纸。</li>
+</ol>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2020/03/21/0ffer02/#more" rel="contents">
+              <a class="btn" href="/2020/05/13/designPattern06/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -689,7 +679,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://jiangao66.github.io/2020/03/20/offer01/">
+    <link itemprop="mainEntityOfPage" href="https://jiangao66.github.io/2020/05/13/designPattern05/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/header.jpg">
@@ -703,7 +693,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/03/20/offer01/" class="post-title-link" itemprop="url">剑指offer题解笔记：链表</a>
+            <a href="/2020/05/13/designPattern05/" class="post-title-link" itemprop="url">设计模式：代理模式</a>
         </h2>
 
         <div class="post-meta">
@@ -713,14 +703,14 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2020-03-20 17:34:13" itemprop="dateCreated datePublished" datetime="2020-03-20T17:34:13+08:00">2020-03-20</time>
+              <time title="创建时间：2020-05-13 17:34:13" itemprop="dateCreated datePublished" datetime="2020-05-13T17:34:13+08:00">2020-05-13</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-04-26 13:07:45" itemprop="dateModified" datetime="2020-04-26T13:07:45+08:00">2020-04-26</time>
+                <time title="修改时间：2020-05-20 12:50:31" itemprop="dateModified" datetime="2020-05-20T12:50:31+08:00">2020-05-20</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -728,7 +718,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">数据结构与算法</span></a>
+                  <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" itemprop="url" rel="index"><span itemprop="name">设计模式</span></a>
                 </span>
             </span>
 
@@ -743,13 +733,11 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h3 id="链表中倒数第k个节点"><a href="#链表中倒数第k个节点" class="headerlink" title="链表中倒数第k个节点"></a>链表中倒数第k个节点</h3><blockquote>
-<p>题目描述：输入一个链表，输出该链表中倒数第k个节点。</p>
-</blockquote>
-<p>虽然最直观的思路往往不是最优解，但是我们在做算法题的时候还是需要从最直观的解法出发，不断优化现有思路或者参考他人解法来获取新的idea来解决问题，这样才能达到思维层面上的进步。<br>就这题而言，最直观的解法显然是先遍历链表，找到链表的长度length,然后再找到第length-k+1位置处的节点，就是需要的倒数第k个节点。那么可以很快的写出下面代码：</p>
+          <h1 id="代理模式简介"><a href="#代理模式简介" class="headerlink" title="代理模式简介"></a>代理模式简介</h1><h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p>通过代理，控制对对象的访问！使用代理模式可以详细控制某个（某类）对象的方法，在调用这个方法之前做前置处理，调用这个方法之后做后置处理（这也就是Spring的AOP的微观实现）。</p>
+<p><img src="D:%5Cblog%5Csource_posts%5Cimg%5CdesignPattern%5C%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F.png" alt="代理模式"></p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2020/03/20/offer01/#more" rel="contents">
+              <a class="btn" href="/2020/05/13/designPattern05/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -773,7 +761,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://jiangao66.github.io/2020/03/15/sort01/">
+    <link itemprop="mainEntityOfPage" href="https://jiangao66.github.io/2020/05/10/JVM06/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/header.jpg">
@@ -787,7 +775,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/03/15/sort01/" class="post-title-link" itemprop="url">排序算法比较与梳理</a>
+            <a href="/2020/05/10/JVM06/" class="post-title-link" itemprop="url">破坏双亲委派加载机制</a>
         </h2>
 
         <div class="post-meta">
@@ -797,14 +785,14 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2020-03-15 17:27:58" itemprop="dateCreated datePublished" datetime="2020-03-15T17:27:58+08:00">2020-03-15</time>
+              <time title="创建时间：2020-05-10 17:34:13" itemprop="dateCreated datePublished" datetime="2020-05-10T17:34:13+08:00">2020-05-10</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-04-26 11:53:58" itemprop="dateModified" datetime="2020-04-26T11:53:58+08:00">2020-04-26</time>
+                <time title="修改时间：2020-05-20 13:25:08" itemprop="dateModified" datetime="2020-05-20T13:25:08+08:00">2020-05-20</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -812,7 +800,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">数据结构与算法</span></a>
+                  <a href="/categories/JVM%E8%99%9A%E6%8B%9F%E6%9C%BA/" itemprop="url" rel="index"><span itemprop="name">JVM虚拟机</span></a>
                 </span>
             </span>
 
@@ -827,10 +815,182 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="各类排序算法"><a href="#各类排序算法" class="headerlink" title="各类排序算法"></a>各类排序算法</h2><p><img src="/img/01sort/sort.png" alt="排序算法复杂度"></p>
+          <p>双亲委派模型并不是一个强制性的约束模型，而是 Java 设计者推荐给开发者的类加载器实现方式。在 Java 的世界中大部分类加载器都遵循这个原则，但是显然也有例外。</p>
+<p>在《深入理解 JVM 虚拟机》一书中，作者提出双亲委派模型目前出现过 3 次较大规模的“被破坏”情况。</p>
+<h3 id="第一次被破坏"><a href="#第一次被破坏" class="headerlink" title="第一次被破坏"></a>第一次被破坏</h3><p>第一次被破坏其实发生在双亲委派模型出现之前，也就是 JDK 1.2  发布之前，由于双亲委派模型在 JDK 1.2 之后才引入，而类加载器和抽象类 java.lang.ClassLoader 在 JDK 1.0  时代就已经存在，面对已经存在的用户自定义类加载器的实现代码，Java 设计者在引入双亲委派模型时不得不做出一些妥协。为了向前兼容，JDK 1.2  之后的 java.lang.ClassLoader 添加了一个新的 protected 方法 findClass()  方法，因为虚拟机在进行类加载的时候会调用加载器的私有方法 loadClassInternal()，而这个方法的唯一逻辑就是去调用自己的  loadClass()。双亲委派的具体逻辑就在这个方法之中，JDK 1.2 之后已经不再提倡用户再去覆盖 loadClass()  方法，而应当把自己的类加载器逻辑写到 findClass() 方法来完成加载，这样就可以保证写出来的类加载器都是符合双亲委派规则的。</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2020/03/15/sort01/#more" rel="contents">
+              <a class="btn" href="/2020/05/10/JVM06/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://jiangao66.github.io/2020/05/09/designPattern04/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="小小鱼">
+      <meta itemprop="description" content="分享学习心得，记录学习过程">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/05/09/designPattern04/" class="post-title-link" itemprop="url">设计模式：适配器模式</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-05-09 17:34:13" itemprop="dateCreated datePublished" datetime="2020-05-09T17:34:13+08:00">2020-05-09</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-05-19 22:34:38" itemprop="dateModified" datetime="2020-05-19T22:34:38+08:00">2020-05-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" itemprop="url" rel="index"><span itemprop="name">设计模式</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>将两种完全不同的事物联系到一起，就像现实生活中的变压器。假设一个手机充电器需要的电压是20V，但是正常的电压是220V，这时候就需要一个变压器，将220V的电压转换成20V的电压，这样，变压器就将20V的电压和手机联系起来了。</p>
+<h3 id="什么是适配器模式？"><a href="#什么是适配器模式？" class="headerlink" title="什么是适配器模式？"></a>什么是适配器模式？</h3><p>将一个类的接口转换成客户希望的另外一个接口，Adapter模式使得原本由于接口不兼容而不能一起工作的那些类可以一起工作。</p>
+<h3 id="模式中的角色"><a href="#模式中的角色" class="headerlink" title="模式中的角色"></a>模式中的角色</h3><ol>
+<li><strong>目标接口（Target）</strong>：客户所期待的接口，目标可以是具体的或抽象的类，也可以是接口。</li>
+<li><strong>需要适配的类（Adaptee）</strong>：需要适配的类或适配者类</li>
+<li><strong>适配器（Adapter）</strong>：通过包装一个需要适配的对象，把原接口转换成目标接口。</li>
+</ol>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/05/09/designPattern04/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://jiangao66.github.io/2020/05/08/tcp02/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/header.jpg">
+      <meta itemprop="name" content="小小鱼">
+      <meta itemprop="description" content="分享学习心得，记录学习过程">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/05/08/tcp02/" class="post-title-link" itemprop="url">TCP/IP必知必会的10个问题</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-05-08 17:34:13" itemprop="dateCreated datePublished" datetime="2020-05-08T17:34:13+08:00">2020-05-08</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-05-20 13:36:54" itemprop="dateModified" datetime="2020-05-20T13:36:54+08:00">2020-05-20</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" itemprop="url" rel="index"><span itemprop="name">计算机网络</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="TCP-IP模型"><a href="#TCP-IP模型" class="headerlink" title="TCP/IP模型"></a>TCP/IP模型</h3><p>TCP/IP 协议模型（Transmission Control Protocol/Internet Protocol），包含了一系列构成互联网基础的网络协议，是 Internet 的核心协议。</p>
+<p>基于 TCP/IP 的参考模型将协议分成四个层次，它们分别是链路层、网络层、传输层和应用层。下图表示 TCP/IP 模型与 OSI 模型各层的对照关系。</p>
+<p><img src="/img/tcp/0fa6c237-a909-4e2a-a771-2c5485cd8ce0.png" alt="0fa6c237-a909-4e2a-a771-2c5485cd8ce0"></p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/05/08/tcp02/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -852,6 +1012,9 @@
 
 
   
+  <nav class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+  </nav>
 
 
 
@@ -918,18 +1081,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">8</span>
+          <span class="site-state-item-count">47</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
-        <span class="site-state-item-count">1</span>
-        <span class="site-state-item-name">分类</span>
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-count">33</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
